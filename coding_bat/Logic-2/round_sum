@@ -1,0 +1,16 @@
+def checkValue(value):
+    modValue = value % 10
+    if modValue >=5:
+        newValue = 10 + value - modValue
+        return newValue
+    else:
+        return value - modValue
+
+def round_sum(a,b,c):
+    return checkValue(a) + checkValue(b) + checkValue(c)
+
+
+print(round_sum(16, 17, 18))
+print(round_sum(12, 13, 14))
+print(round_sum(16, 4, 4))
+    

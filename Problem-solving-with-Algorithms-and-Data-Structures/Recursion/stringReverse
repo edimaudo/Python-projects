@@ -1,0 +1,15 @@
+# reverse string using recursion
+
+def reverse(value):
+    if len(value) <= 1:
+        return value
+    else:
+        return reverse(value[1:]) + value[0]
+
+def main():
+    print(reverse("wowl"))
+    print(reverse("hello"))
+    print(reverse("l"))
+    print(reverse("follow"))
+    print(reverse(""))
+main()

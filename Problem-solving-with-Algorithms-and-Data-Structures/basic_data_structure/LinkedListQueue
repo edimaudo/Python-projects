@@ -1,0 +1,10 @@
+#Implement a queue linked list
+#Implement a deque using linked lists.
+#Implement a queue using linked lists.
+#Implement a stack using linked lists.
+
+class Node:
+class UnOrderedLinkedList
+class Queue:
+class Stack:
+class Deque:

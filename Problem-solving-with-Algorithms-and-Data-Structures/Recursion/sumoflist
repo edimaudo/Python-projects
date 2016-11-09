@@ -1,0 +1,13 @@
+# looping to get sum of list
+def sumlist(listval):
+  thesum = 0
+  for i in listval:
+    thesum += i
+  return thesum
+
+#list sum using recursion
+def recursivesumlist(listval):
+  if len(listval) == 1:
+    return listval[0]
+  else:
+    return listval[0] + recursivesumlist(listval[1:])

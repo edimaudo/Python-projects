@@ -1,0 +1,12 @@
+# converting an integer to a string
+def toStr(n,base):
+  convertString = "0123456789ABCDEF"
+  if n < base:
+    convertString[n]
+  else:
+    toStr(n//base,base) + covertString[n%base]
+    
+def main():
+  print(toStr(1453,8))
+
+main()

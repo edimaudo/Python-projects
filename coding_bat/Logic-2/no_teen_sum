@@ -1,0 +1,15 @@
+def check(value):
+    if value in [13,14,17,18,19]:
+        value = 0
+        return value
+    return value
+
+
+def no_teen_sum(a,b,c):
+    return check(a) + check(b) + check(c)
+
+
+print(no_teen_sum(1,2,3))
+print(no_teen_sum(1,14,15))
+print(no_teen_sum(13,14,15))
+print(no_teen_sum(15,14,15))
