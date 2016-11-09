@@ -1,0 +1,5 @@
+
+Goal of the app is to calculate amount of tax based on price.
+This shows basic input/output and how to merge qt designer with python code.
+Code was run using pyscripter and both files were located in the same folder.
+There is no error handling

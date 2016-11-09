@@ -1,0 +1,1 @@
+Application converts user input from celsius to farenheit and vice versa
