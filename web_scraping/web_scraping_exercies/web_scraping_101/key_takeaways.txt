@@ -1,0 +1,5 @@
+What I learnt from the tutorial
+
+- When writing functions apply the DRY (Don't repeat yourself) principle where necessary
+- play nice with the website
+- web scraping is easy to setup if you have the right tools

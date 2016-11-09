@@ -1,0 +1,7 @@
+#Web scraping using http://web.stanford.edu/~zlotnick/TextAsData/Web_Scraping_with_Beautiful_Soup.html
+#overview of how to use beautiful soup and scraping text
+
+Goal
+-Go over the basics of web scraping
+-scrape a website
+-write to a file
