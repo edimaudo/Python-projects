@@ -1,15 +1,8 @@
-#!/usr/bin/python
-# Copyright 2010 Google Inc.
-# Licensed under the Apache License, Version 2.0
-# http://www.apache.org/licenses/LICENSE-2.0
-
-# Google's Python Class
-# http://code.google.com/edu/languages/google-python-class/
-
 import os
 import re
 import sys
 import urllib
+import urllib2
 
 """Logpuzzle exercise
 Given an apache logfile, find the puzzle urls and download the images.
@@ -25,6 +18,16 @@ def read_urls(filename):
   Screens out duplicate urls and returns the urls sorted into
   increasing order."""
   # +++your code here+++
+  with open(filename) as f:
+    logData = ''
+    f = f.readlines()
+    for data in f:
+      logData+=data
+    tempoutput = re.findall(r'GET (\S+)',logData)
+    output = [value for value in tempoutput if value[-3:] in ['jpg','png']]
+    output.sort()
+    output = list(set(output))
+    return output
   
 
 def download_images(img_urls, dest_dir):
@@ -36,26 +39,30 @@ def download_images(img_urls, dest_dir):
   Creates the directory if necessary.
   """
   # +++your code here+++
-  
+  if os.path.exists(dest_dir):
+    return "The folder already exists"
+  else:
+    os.mkdir(dest_dir)
+    count = 0
+    image_data = ""
+    for url in img_urls:
+      filename = "img" + str(count) + ".jpg"
+      urllib.urlretrieve("https://code.google.com/" + url, filename)
+      image_data += "<img src='" + filename + "'>"
+      count+=1
+    f = open('index.html','w')
+    htmlInfo = "<html><head></head><body><p>" + image_data + "</p></body>"
+    f.write(htmlInfo)
+    f.close
 
 def main():
-  args = sys.argv[1:]
-
-  if not args:
-    print 'usage: [--todir dir] logfile '
-    sys.exit(1)
-
-  todir = ''
-  if args[0] == '--todir':
-    todir = args[1]
-    del args[0:2]
-
-  img_urls = read_urls(args[0])
-
-  if todir:
-    download_images(img_urls, todir)
-  else:
-    print '\n'.join(img_urls)
+  path = '/Users/edima/Documents/Coding/python_projects/google_python/logpuzzle' # use your own path
+  log_file = ['animal_code.google.com','place_code.google.com']
+  url_data = [read_urls(path + "/" + file) for file in log_file]
+  
+  #print(url_data)
+  directory_name = 'animal_place_data'
+  download_images(url_data[0], path + "/" + directory_name)
 
 if __name__ == '__main__':
   main()
