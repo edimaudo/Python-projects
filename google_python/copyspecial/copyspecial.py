@@ -5,6 +5,7 @@ import shutil
 import commands
 from os import listdir
 from os.path import isfile, join
+import zipfile
 
 """Copy Special exercise
 """
@@ -22,7 +23,14 @@ def copy_to(paths, dir):
   return
 
 def zip_to(paths, zippath):
-  return
+  if os.path.exists(zippath):
+    return "No file to zip to "
+  else:
+    output = get_special_paths(paths)
+    for value in output:
+      shutil.make_archive(output_filename, 'zip', zippath)
+    return "Done"
+
 
 
 
@@ -33,7 +41,8 @@ def main():
   topath = '/Users/edima/Desktop/google-python-exercises/copyspecial/copyLocation' # use own path
 
   #print(get_special_paths(frompath))
-  def copy_to(topath, frompath)
+  #copy_to(topath, frompath)
+  #zip_to(frompath,topath)
 
 if __name__ == "__main__":
   main()
