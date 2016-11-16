@@ -50,7 +50,7 @@ def extract_names(filename):
 
 
 def main():
-  mypath = '/Users/edima/Desktop/google-python-exercises/babynames/babydata'
+  mypath = '/Users/edima/Desktop/google-python-exercises/babynames/babydata' #use your own path
   onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
   fileData = [file for file in onlyfiles if file[0:4]=='baby']
 
