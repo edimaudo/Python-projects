@@ -1,12 +1,9 @@
 import os
 import sys
-from datetime import date
-import datetime
 import time
-from bs4 import BeautifulSoup
-from urllib2 import urlopen
 from selenium import webdriver
 import pandas as pd
+import numpy as np
 from selenium.webdriver.support.ui import Select
 
 """
@@ -24,7 +21,6 @@ BASE_URL = "https://data.usac.org/publicreports/FRN/Status/FundYear"
 driver.get(BASE_URL)
 time.sleep(1)
 try:
-
 	for state in US_STATES:
 		mySelect = Select(driver.find_element_by_id("SelectedStateId"))
 		mySelect.select_by_visible_text(state)
@@ -40,9 +36,10 @@ try:
 
 	combined = pd.concat(results, ignore_index=True)
 	combined.to_excel('result.xlsx', index=False)
+	driver.quit()
 except:
 	e = sys.exc_info()
 	print(e)
-	#driver.quit()
+	driver.quit()
 	sys.exit(1)
 

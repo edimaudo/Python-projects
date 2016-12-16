@@ -43,6 +43,8 @@ except:
 	print(e)
 	sys.exit(1)
 
+#aria-expanded='false'
+
 #collateral beauty contest 2
 BASE_URL = "http://www.tribute.ca/contests/collateral-beauty-smart-phone-contest-c3814/?referrer=TRIBUTE"
 driver.get(BASE_URL)
