@@ -6,6 +6,7 @@ from the website https://www.usa.gov/federal-agencies/a
 
 from selenium import webdriver
 import sys
+import csv
 
 path_to_chromedriver = '/Users/Edima/Desktop/contest/chromedriver'
 driver = webdriver.Chrome(path_to_chromedriver)
