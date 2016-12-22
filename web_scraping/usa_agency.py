@@ -38,6 +38,7 @@ try:
 	#print(agency_data)	
 	
 	path = "/Users/edima/Documents/Coding/python_projects/web_scraping/web_scraping/"
+	
 	# open a csv file with append, so old data will not be erased
 	with open(path + 'index.csv', 'a') as csv_file:  
 		writer = csv.writer(csv_file)
