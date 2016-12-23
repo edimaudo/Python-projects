@@ -1,8 +1,0 @@
-Web scraping rules you should remember based on Greg Reda's blog (http://www.gregreda.com/2013/03/03/web-scraping-101-with-python/)
-
-- You should check a site's terms and conditions before you scrape them. 
-- It's their data and they likely have some rules to govern it.
-- Be nice - A computer will send web requests much quicker than a user can. 
-- Make sure you space out your requests a bit so that you don't hammer the site's server.
-- Scrapers break - Sites change their layout all the time. If that happens, be prepared to rewrite your code.
-- Web pages are inconsistent - There's sometimes some manual clean up that has to happen even after you've gotten your data.
