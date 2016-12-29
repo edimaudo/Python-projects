@@ -23,7 +23,6 @@ try:
 	word_data = word_info.find_elements_by_class_name("def-set")
 	temp_output = [data.find_element_by_class_name("def-content").text for data in word_data]
 
-	print(temp_output)
 	
 	temp_output2 = [value[:value.find(":")] for value in temp_output]
 	print(temp_output2)
