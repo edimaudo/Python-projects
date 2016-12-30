@@ -1,24 +1,13 @@
-import numpy as np
 import pandas as pd
-import glob
-#import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
+import numpy as np
+from sklearn.tree import DecisionTreeRegressor
 
+bikes = pd.read_csv("data.csv")
+#print(bikes.head())
 
-#path ='/Users/edima/Desktop/citibike/data/' # use your path
-#allFiles = glob.glob(path + "/*.csv")
-#frame = pd.DataFrame()
-
-df = pd.read_csv('data.csv')
-df.head()
-
-#group data
-
-#gender grouping
-total = df.gender.count()
-groupedGender.size() / total * 100
-
-groupedStart = df.groupby('start station name')
-groupedStart['start station name'].count().sort_values(ascending=False)[:5]
-
-groupedEnd = df.groupby('end station name')
-groupedEnd['end station name'].count().sort_values(ascending=False)[:5]
+plt.figure(figsize=(8,6))
+plt.plot(bikes['gender'],bikes['bikeid'],'o')
+plt.xlabel('gender')
+plt.ylabel('bike id')
+plt.show()
