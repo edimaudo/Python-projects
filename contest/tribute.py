@@ -8,7 +8,7 @@ count = 0
 while(count < 5):
 	path_to_chromedriver = '/Users/Edima/Desktop/contest/chromedriver' #change as needed
 	my_data =  ["Edima", "Udo", "Edima Udo",
-	'edimaudo@outlook.com',"76 Westgate Boulevard","Toronto","M3H 1P2", "Ontario", "6479876976"]
+	'',"","Toronto","", "Ontario", ""]
 
 	contests = ["http://www.tribute.ca/contests/war-dogs-blu-ray-contest-c3806/?referrer=TRIBUTE",
 	"http://www.tribute.ca/contests/hell-or-high-water-c3821/?referrer=TRIBUTE",
