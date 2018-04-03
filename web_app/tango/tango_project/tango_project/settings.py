@@ -55,7 +55,7 @@ ROOT_URLCONF = 'tango_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['/Users/edima/Documents/Coding/python_projects/web_app/tango/tango_project/templates/tango_project/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
