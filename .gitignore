@@ -8,3 +8,9 @@
 *.jpeg
 
 *.jpg
+
+*.sqlite3
+
+*.sqlite3
+
+web_app/mysite/db.sqlite3
