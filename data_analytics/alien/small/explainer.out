@@ -1,0 +1,60 @@
+TWEET: andrew I hate mondays.
+   author = andrew
+   followers = {'judy', 'george'}
+   mentions = set()
+   seen by = {'judy', 'george'} (2)
+TWEET: fred Python is cool.
+   author = fred
+   followers = {'judy', 'andrew'}
+   mentions = set()
+   seen by = {'judy', 'andrew'} (2)
+TWEET: fred Ko Ko Bop Ko Ko Bop Ko Ko Bop for ever
+   author = fred
+   followers = {'judy', 'andrew'}
+   mentions = set()
+   seen by = {'judy', 'andrew'} (2)
+TWEET: andrew @fred no it isn't, what do you think @john???
+   author = andrew
+   followers = {'judy', 'george'}
+   mentions = {'john', 'fred'}
+   seen by = {'judy', 'george', 'john', 'fred'} (4)
+TWEET: judy @fred enough with the k-pop
+   author = judy
+   followers = {'george'}
+   mentions = {'fred'}
+   seen by = {'george', 'fred'} (2)
+TWEET: judy RT @fred Python is cool.
+   author = judy
+   followers = {'george', 'fred'}
+   mentions = {'fred'}
+   seen by = {'george', 'fred'} (2)
+   because this is a retweet, 1 more people saw the original tweet, maybe again
+TWEET: andrew RT @judy enough with the k pop
+   author = andrew
+   followers = {'judy', 'george', 'john', 'fred'}
+   mentions = {'judy'}
+   seen by = {'judy', 'george', 'john', 'fred'} (4)
+   because this is a retweet, 3 more people saw the original tweet, maybe again
+TWEET: george RT @fred Python is cool.
+   author = george
+   followers = {'john'}
+   mentions = {'fred'}
+   seen by = {'john', 'fred'} (2)
+   because this is a retweet, 1 more people saw the original tweet, maybe again
+TWEET: andrew DM @john Oops
+   author = andrew
+   direct message, followers don't usually see
+   mentions = {'john'}
+   seen by = {'john'} (1)
+TWEET: john DM @andrew Who are you go away! Do you know him, @judy?
+   author = john
+   direct message, followers don't usually see
+   mentions = {'judy', 'andrew'}
+   seen by = {'judy', 'andrew'} (2)
+
+username               tweets
+andrew                      4
+fred                        2
+george                      1
+john                        1
+judy                        2
