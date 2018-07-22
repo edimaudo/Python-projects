@@ -14,3 +14,11 @@
 *.sqlite3
 
 web_app/mysite/db.sqlite3
+
+data_analytics/MINST/t10k-images-idx3-ubyte
+
+data_analytics/MINST/t10k-labels-idx1-ubyte
+
+data_analytics/MINST/train-images-idx3-ubyte
+
+data_analytics/MINST/train-labels-idx1-ubyte
