@@ -2,11 +2,30 @@ import sys
 import csv
 import io
 
+def calculate_score(value):
+	newvalue = value.split(",")
+	if len(newvalue) < 2:
+		return "Student Number: " + str(newvalue[0]) + "  " + "Total Marks: 0"
+	else:
+		sumvalue = newvalue[1:]
+		suminfo = 0
+		for value in sumvalue:
+			suminfo += int(value)
+		return "Student Number: " + str(newvalue[0]) + "  " + "Total Marks: " + str(suminfo)
+	
+
 def main():
 	try:
-		#do something
+		rowinfo = []
 		with open('student_marks.txt', 'r') as txtfile:
-
+			for row in txtfile:
+				row = row.rstrip("\r\n")
+				rowinfo.append(calculate_score(row))
+				#print(calculate_score(row))
+		with open('index.csv', 'a') as csv_file:  
+			writer = csv.writer(csv_file)
+			for info in rowinfo:
+				writer.writerow([info])
 	except:
 		e = sys.exc_info()
 		print(e)
