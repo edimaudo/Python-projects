@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import include
-from django.urls import path
+#from django.urls import path
 from django.views.generic import RedirectView
 
 urlpatterns = [
