@@ -1,0 +1,15 @@
+name: intel_nlp
+channels:
+  - conda-forge
+dependencies:
+  - numpy
+  - pandas
+  - scikit-learn
+  - nltk
+  - matplotlib
+  - seaborn
+  - gensim
+  - keras=2.1.5
+  - tensorflow
+  - ipykernel
+  - pyemd
