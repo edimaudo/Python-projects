@@ -15,8 +15,7 @@ This data set has 4177 rows and 9 columns and physical measurements of abalones 
 The age of abalone is determined by cutting the shell through the cone, staining it, and counting the number of rings through a microscope -- a boring and time-consuming task. 
 Other measurements, which are easier to obtain, are used to predict the age. 
 
-This data set is recommended for learning and practicing your skills in **exploratory data analysis**, **data visualization**, and **classification modelling techniques**. 
-Feel free to explore the data set with multiple **supervised** and **unsupervised** learning techniques. The Following data dictionary gives more details on this data set:
+The Following data dictionary gives more details on this data set:
 
 ---
 
