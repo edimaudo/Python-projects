@@ -9,8 +9,7 @@ Decision making involves selection between seemingly conflicting alternatives.
 The data set has 1728 rows and 7 columns in which car attributes such as price and technology are described across 6 attributes such as "Buying Price", "Maintenance", and "Safety" etc. There are multiple alternatives under each of the 6 attributes. Car's acceptability,
 the seventh attribute, is the outcome variable.         
 
-This data set is recommended for learning and practicing your skills in **classification modelling techniques**. Feel free to explore the data set with multiple 
-classification methods. The Following data dictionary gives more details on this data set:
+The Following data dictionary gives more details on this data set:
 
 ---
 
