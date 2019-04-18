@@ -2,12 +2,10 @@
 
 ### Predict location from wifi signal strength 
 
-data set has 2000 rows and 8 columns.
+The data set has 2000 rows and 8 columns.
 The data set contains wifi signal strength observed from 7 wifi devices on a smartphone collected in indoor space. 
 The data could be used to estimate the location in one of the four rooms.
-
-This data set is recommended for learning and practicing your skills in **exploratory data analysis**, **data visualization**, and **classification modelling techniques**. 
-Feel free to explore the data set with multiple **supervised** and **unsupervised** learning techniques. The Following data dictionary gives more details on this data set:
+The Following data dictionary gives more details on this data set:
 
 ---
 
