@@ -8,7 +8,7 @@
 
 
 
-This data set has 398 rows and 9 columns and provides mileage, horsepower, model year, and other technical specifications for cars. This data set is recommended for learning and practicing your skills in **exploratory data analysis**, **data visualization**, and **regression modelling techniques**. Feel free to explore the data set with multiple **supervised** and **unsupervised** learning techniques. The Following data dictionary gives more details on this data set:
+This data set has 398 rows and 9 columns and provides mileage, horsepower, model year, and other technical specifications for cars. The Following data dictionary gives more details on this data set:
 
 ---
 

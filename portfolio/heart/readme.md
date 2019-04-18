@@ -15,7 +15,7 @@ This level data set provides health examination data among 303 patients who pres
 
 ### Data Dictionary
 
-**Column Position** | **Attribute Name** |  **Description**                                                                                     | **Attribute Type**    
+**Column Position** | **Attribute Name** |  **Description**| **Attribute Type**    
 --------------------| -------------------|  ----------------------------------------------------------------------------------------------------|------------------
      #1             |   age              |  age of the patient                                                                                  | quantitative
      #2             |   sex              |  gender of the patient                                                                               | qualitative

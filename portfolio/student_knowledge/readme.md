@@ -2,11 +2,10 @@
 
 ### Predict student's knowledge level 
 
-data set has 403 rows and 6 columns.
+The data set has 403 rows and 6 columns.
 The data set has been divided into training and testing (training: 258, testing: 145).
 It is a real dataset about the students' knowledge status about the subject of Electrical DC Machines.
-This data set is recommended for learning and practicing your skills in **exploratory data analysis**, **data visualization**, and **classification** and **clustering** techniques. 
-Feel free to explore the data set with multiple **supervised** and **unsupervised** learning techniques. The Following data dictionary gives more details on this data set:
+The Following data dictionary gives more details on this data set:
 
 ---
 
