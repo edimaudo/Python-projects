@@ -6,8 +6,6 @@
 ### Predict chance of survival 
 
 
-\
-
 This level data set has 155 rows and 20 columns and provides various attributes of a patient.
 The Following data dictionary gives more details on this data set:
 
