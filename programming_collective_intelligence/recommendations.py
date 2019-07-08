@@ -77,6 +77,16 @@ def getRecommendations(prefs,person,similarity=sim_pearson):
 	rankings.reverse( )
 	return rankings
 
+def transformPrefs(prefs):
+	result={}
+	for person in prefs:
+		for item in prefs[person]:
+			result.setdefault(item,{})
+# Flip item and person
+	result[item][person]=prefs[person][item]
+	return result
+
+
 # A dictionary of movie critics and their ratings of a small
 # set of movies
 critics={'Lisa Rose': {'Lady in the Water': 2.5, 'Snakes on a Plane': 3.5,
@@ -101,3 +111,4 @@ print(critics['Lisa Rose']['Lady in the Water'])
 print(sim_distance(critics,'Lisa Rose','Gene Seymour'))
 print(sim_pearson(critics,'Lisa Rose','Gene Seymour'))
 print(topMatches(critics,'Toby',n=3))
+
