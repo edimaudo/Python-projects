@@ -95,3 +95,17 @@ def testalgorithm(algf,trainset,testset):
 		guess=algf(trainset,row['input'])
 		error+=(row['result']-guess)**2
 	return error/len(testset)
+
+
+def crossvalidate(algf,data,trials=100,test=0.05):
+	error=0.0
+	for i in range(trials):
+		trainset,testset=dividedata(data,test)
+		error+=testalgorithm(algf,trainset,testset)
+	return error/trials
+
+def wineset2( ):
+	rows=[]
+	for i in range(300):
+		rating=random( )*50+50
+		age=random( )*50
