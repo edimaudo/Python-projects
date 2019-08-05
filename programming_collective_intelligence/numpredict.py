@@ -109,3 +109,42 @@ def wineset2( ):
 	for i in range(300):
 		rating=random( )*50+50
 		age=random( )*50
+
+def rescale(data,scale):
+	scaleddata=[]
+	for row in data:
+		scaled=[scale[i]*row['input'][i] for i in range(len(scale))]
+		scaleddata.append({'input':scaled,'result':row['result']})
+	return scaleddata
+
+def createcostfunction(algf,data):
+	def costf(scale):
+		sdata=rescale(data,scale)
+		return crossvalidate(algf,sdata,trials=10)
+	return costf
+
+def wineset3( ):
+	rows=wineset1( )
+	for row in rows:
+		if random( )<0.5:
+		# Wine was bought at a discount store
+		row['result']*=0.6
+	return rows
+
+def probguess(data,vec1,low,high,k=5,weightf=gaussian):
+	dlist=getdistances(data,vec1)
+	nweight=0.0
+	tweight=0.0
+	for i in range(k):
+		dist=dlist[i][0]
+		idx=dlist[i][1]
+		weight=weightf(dist)
+		v=data[idx]['result']
+		# Is this point in the range?
+		if v>=low and v<=high:
+		nweight+=weight
+		tweight+=weight
+		if tweight==0: return 0
+		# The probability is the weights in the range
+		# divided by all the weights
+	return nweight/tweight
