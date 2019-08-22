@@ -11,26 +11,23 @@ def move(currentPosition,allPosition):
     return tempval[generate_random(tempval)]
 
 def main():
+    city = ["Chicago","New York City","Portland","Palo Alto","India","Germany","Russia","Atlanta"]
+    
     countries = {
-    "Ecuador":["Columbia","Peru","Brazil"],
-    "Columbia":["Ecuador","Peru","Venezuela","Brazil"],
-    "Venezuela":["Columbia","Guyana","Brazil"],
-    "Guyana":["Venezuela","Suriname","Brazil"],
-    "Suriname":["Guyana","French Guiana","Brazil"],
-    "French Guiana":["Suriname","Brazil"],
-    "Brazil":["Guyana","French Guiana","Suriname","Venezuela","Columbia","Peru","Bolivia","Paraguay","Argentina","Uruguay"],
-    "Uruguay":["Argentina","Brazil"],
-    "Paraguay":["Bolivia","Argentina","Brazil"],
-    "Bolivia":["Brazil","Peru","Chile","Argentina","Paraguay"],
-    "Peru":["Ecuador","Brazil","Bolivia","Columbia","Chile"],
-    "Chile":["Peru","Bolivia","Argentina"],
-    "Argentina":["Chile","Bolivia","Paraguay","Brazil","Uruguay"]
+    "Chicago":["New York City","Portland","Palo Alto"],
+    "New York City":["Chicago","Portland","India"],
+    "Portland":["Chicago","New York City","Palo Alto","India","Germany"],
+    "Palo Alto":["Chicago","Portland"],
+    "India":["New York City","Portland","Germany","Russia","Atlanta"],
+    "Germany":["India","Portland","Russia"],
+    "Russia":["India","Germany","Atlanta"],
+    "Atlanta":["India","Russia"]
     }
 
     currentCountry = []
-    startCountry = "Chile"
+    startCountry = city[generate_random(city)]
     countval = 0
-    maxval = 1000
+    maxval = 1000000
     while countval < maxval:
         startCountry = move(startCountry,countries)
         currentCountry.append(startCountry)
