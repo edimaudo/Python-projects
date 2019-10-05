@@ -1,4 +1,6 @@
 PROBLEM SETTING
+
+
 Commercial corn is processed into multiple food and industrial products. It is widely known as one of the world’s most important crops. Each year, plant breeders create new corn products, known as experimental hybrids, by crossing two “parents” together. The parents are known as inbreds and the development of the inbreds takes up the bulk of a corn breeding program. Most of that effort is spent evaluating the inbreds by crossing to another inbred, called a “tester.” 
 
 It is a plant breeder’s job to identify the best parent combinations by creating experimental hybrids and assessing the hybrids’ performance by “testing” it in multiple environments to identify the hybrids that perform best. Historically, identifying the best hybrids has been by trial and error, with breeders testing their experimental hybrids in a diverse set of locations and measuring their performance, then selecting the highest yielding hybrids. The process of selecting the correct parent combinations and testing the experimental hybrids can take many years and is inefficient, simply due to the number of potential parent combinations to create and test.
@@ -45,20 +47,34 @@ Training Dataset: This dataset contains the observed yield (consistently scaled 
 Test Dataset: This dataset contains a set of inbred and tester combinations that need to be predicted as part of the challenge. The mean yield is to be predicted for each listed combination of inbred by tester.
 
 
-Training Dataset	YEAR	Year grown
+Training Dataset	
+
+YEAR	Year grown
+
 LOCATION	ID for each location
+
 INBRED	ID for Inbred
+
 INBRED_CLUSTER	Cluster association for each inbred which denotes genetic grouping
+
 TESTER	ID for Tester
+
 TESTER_CLUSTER	Cluster association for each tester which denotes genetic grouping
+
 YIELD	The performance of the Line and Tester combination
 
 
-Testing Dataset	INBRED	ID for INBRED
+Testing Dataset	
+
+INBRED	ID for INBRED
+
 INBRED_CLUSTER	Cluster association for each line which denotes genetic grouping
+
 TESTER	ID for Tester
+
 TESTER_CLUSTER	Cluster association for each tester which denotes genetic grouping
+
 YIELD	The performance of the Line and Tester combination – to be predicted
 
-timeline jan 15, 2020
+
 
