@@ -47,19 +47,33 @@ Training Dataset: This dataset contains the observed yield (consistently scaled 
 Test Dataset: This dataset contains a set of inbred and tester combinations that need to be predicted as part of the challenge. The mean yield is to be predicted for each listed combination of inbred by tester.
 
 
-Training Dataset	YEAR	Year grown
+Training Dataset	
+
+YEAR	Year grown
+
 LOCATION	ID for each location
+
 INBRED	ID for Inbred
+
 INBRED_CLUSTER	Cluster association for each inbred which denotes genetic grouping
+
 TESTER	ID for Tester
+
 TESTER_CLUSTER	Cluster association for each tester which denotes genetic grouping
+
 YIELD	The performance of the Line and Tester combination
 
 
-Testing Dataset	INBRED	ID for INBRED
+Testing Dataset	
+
+INBRED	ID for INBRED
+
 INBRED_CLUSTER	Cluster association for each line which denotes genetic grouping
+
 TESTER	ID for Tester
+
 TESTER_CLUSTER	Cluster association for each tester which denotes genetic grouping
+
 YIELD	The performance of the Line and Tester combination – to be predicted
 
 
