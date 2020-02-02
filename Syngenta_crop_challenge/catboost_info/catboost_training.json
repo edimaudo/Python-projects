@@ -1,7 +1,6 @@
 {
 "meta":{"test_sets":["test"],"test_metrics":[{"best_value":"Min","name":"RMSE"}],"learn_metrics":[{"best_value":"Min","name":"RMSE"}],"launch_mode":"Train","parameters":"","iteration_count":700,"learn_sets":["learn"],"name":"experiment"},
 "iterations":[
-{"learn":[0.1013429332],"iteration":0,"passed_time":2.67001412,"remaining_time":1866.33987,"test":[0.1101540134]},
-{"learn":[0.09583079647],"iteration":75,"passed_time":159.3788359,"remaining_time":1308.584126,"test":[0.1098613553]},
-{"learn":[0.09234522294],"iteration":150,"passed_time":337.5018596,"remaining_time":1227.076298,"test":[0.1101428576]}
+{"learn":[0.1013539364],"iteration":0,"passed_time":1.687831099,"remaining_time":1179.793939,"test":[0.1101548556]},
+{"learn":[0.09827601762],"iteration":75,"passed_time":105.7462813,"remaining_time":868.2326256,"test":[0.1098910632]}
 ]}
