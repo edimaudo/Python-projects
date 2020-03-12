@@ -12,3 +12,10 @@ Natural-Language-Processing/
 intel_machine_learning/Intel-ML101-Class9/WK9_HW.ipynb
 portfolio/datasets/household_power_consumption.txt
 portfolio/datasets/bank-additional-names.txt
+*.xlsx
+kids_help_phone/Data Pack/Official Kids Help Phone Presentation.pptx
+*.pptx
+*.pptx
+kids_help_phone/KHP_analysis.ipynb
+kids_help_phone/Data Pack/.ipynb_checkpoints/kids_help_phone_analysis-checkpoint.ipynb
+kids_help_phone/app.py
