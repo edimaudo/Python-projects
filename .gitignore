@@ -19,3 +19,7 @@ kids_help_phone/Data Pack/Official Kids Help Phone Presentation.pptx
 kids_help_phone/KHP_analysis.ipynb
 kids_help_phone/Data Pack/.ipynb_checkpoints/kids_help_phone_analysis-checkpoint.ipynb
 kids_help_phone/app.py
+*.ipynb
+*.ipynb
+*.ipynb
+data_analytics/ipython_data_analytics/Lec 13 - Array Input and Output.ipynb
