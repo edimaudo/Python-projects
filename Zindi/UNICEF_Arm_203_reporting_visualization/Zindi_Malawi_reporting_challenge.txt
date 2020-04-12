@@ -1,0 +1,63 @@
+=================
+UNICEF Arm 2030 Vision #2: Malawi Floods Data Visualization and Reporting Challenge
+=================
+
+------------------
+Objective
+------------------
+We are asking you to generate new analysis and insights using data about the 2015 flooding in southern Malawi. You can explore issues around the extent of the floods and the impact of the floods on things like poverty, food security, education, health, access to services, and land use.
+
+Your output can be a mix of data visualization and text.
+
+Visualization using BBC or ecomomist
+https://bbc.github.io/rcookbook/
+http://www.dbenson.co.uk/Rparts/subpages/economist/
+
+------------------
+Evaluation Metric
+------------------
+The evaluation of PDF submissions will be done by a committee of
+representatives from UNICEF, ARM, and Facebook and will take into
+consideration the following criteria:
+The submissions will be judged on the following criteria:
+● Uniqueness of the insights (30%): Did the data scientist analyze the data in new ways and uncover insights and findings that are not obvious?
+● Effective communication of ideas (30%): Are the findings easy to understand and well-communicated?
+● The potential impact of the insights (30%): Would the key messages likely change thinking or even drive action by policymakers and other stakeholders?
+● Overall presentation (10%): Is the design of the visuals and the deliverable well-done?
+
+Your submission should be a PDF document with clear explanations of visualizations. Text may be included. Your submission needs to include references to all data sources, papers, blogs and articles used.
+
+Please label your files:
+username_submission_XXX.pdf
+Where XXX is a unique ID to identify when your submission was made
+
+------------------
+Data sources
+------------------
+Malawi Food Prices - https://data.humdata.org/m/dataset/wfp-food-prices-for-malawi
+Malawi Health sites - https://data.humdata.org/m/dataset/malawi-healthsites
+Malawi Food Security Indicators - https://data.humdata.org/m/dataset/faostat-malawi-indicators-for-food-security
+Malawi 2015 Flood Extent - https://data.humdata.org/m/dataset/malawi-floods-2015-flood-extent
+Malawi Demographic & Health Data - https://data.humdata.org/m/dataset/dhs-data-for-malawi
+Malawi Demographic & Socio- Indicators - https://data.humdata.org/m/dataset/unesco-dsei-malawi
+Malawi High Resolution Population Density Map - https://data.humdata.org/m/dataset/highresolutionpopulationdensitymaps-mwi
+Malawi Buildings (OSM) - https://data.humdata.org/m/dataset/hotosm_mwi_buildings
+Malawi Points of interest - https://data.humdata.org/m/dataset/hotosm_mwi_points_of_interest
+
+Write code using R
+
+be creative with the writing but it has to be professional
+
+Introduction
+
+Overview (Business before the flood etc)
+
+Flooding Incident
+
+Impact of flooding incident
+
+Current situation
+
+Next steps
+
+Conclusion
