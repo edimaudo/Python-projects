@@ -65,20 +65,35 @@ atmos_press: mean atmospheric pressure(atm)*
 Each series of weather and air quality readings will be associated with a unique sensor. You will have a set of features on each of the five sensor:
 
 Location: one of either A,B,C, D or E referring to the five different locations selected
+
 loc_altitude: The height above sea level at the location in metres
+
 Km2: the area of the parish in which the device is located in square km
+
 Aspect: the direction the slope on which the device is located faces
+
 Dist_motorway: distance of the device from the nearest motorway in metres (values greater than 5000m are NaN)✝✝
+
 Dist_trunk: distance of the device from the nearest trunk road in metres (values greater than 5000m are NaN)✝✝
+
 Dist_primary: distance of the device from the nearest primary road in metres (values greater than 5000m are NaN)✝✝
+
 Dist_secondary: distance of the device from the nearest secondary road in metres (values greater than 5000m are NaN)✝✝
+
 Dist_tertiary: distance of the device from the nearest tertiary road in metres (values greater than 5000m are NaN)✝✝
+
 Dist_unclassified: distance of the device from the nearest unclassified road in metres (values greater than 5000m are NaN)✝✝
+
 Dist_residential: distance of the device from the nearest residential road in metres (values greater than 5000m are NaN)✝✝
+
 Popn: The population of the parish in which the device is located✝
+
 Hh: the number of households in the parish in which the device is located✝
+
 Hh_cook_charcoal: number of households in the parish in which the device is located which cook using charcoal✝
+
 Hh_cook_firewood: number of households in the parish in which the device is located which cook using firewood✝
+
 Hh_burn_waste: number of households in the parish in which the device is located which dispose of solid household waste by burning.✝
 *Data courtesy of Tahmo network - (https://tahmo.org/)
 ✝Data courtesy of Ugandan Bureau of Statistics - (https://www.ubos.org/)
