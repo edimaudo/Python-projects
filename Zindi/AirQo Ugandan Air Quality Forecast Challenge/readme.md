@@ -95,9 +95,13 @@ Hh_cook_charcoal: number of households in the parish in which the device is loca
 Hh_cook_firewood: number of households in the parish in which the device is located which cook using firewood✝
 
 Hh_burn_waste: number of households in the parish in which the device is located which dispose of solid household waste by burning.✝
+
 *Data courtesy of Tahmo network - (https://tahmo.org/)
+
 ✝Data courtesy of Ugandan Bureau of Statistics - (https://www.ubos.org/)
+
 ✝✝For definition of road classification see - (https://wiki.openstreetmap.org/wiki/Key:highway#Roads)
+
 The target variable is pm2_5, i.e. mean mass of particulate matter smaller than 2.5 micrometres per cubic metre of air (µ/m3), as read exactly 24 hours after the last weather indicators’ reading.
 
 The training data consists of 15,000 sets of 5 days of hourly weather data readings plus one air quality reading exactly 24 hours after the last weather reading. The test set consists of a different 5,000 sets of 5-day hourly weather data readings.
