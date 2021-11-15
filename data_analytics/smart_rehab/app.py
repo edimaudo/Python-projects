@@ -43,15 +43,22 @@ elif condition_choice == "Spinal Cord":
 else:
 	condition_option_choice = 3
 
-function_inputs = [age_option_choice, condition_option_choice, elbow_choice, upper_arm_choice, knee_leg_choice, wrist_choice]
-desired_output = 44
+function_inputs_temp = [age_option_choice, condition_option_choice, elbow_choice, upper_arm_choice, knee_leg_choice, wrist_choice]
+total = sum(function_inputs_temp)
+
+function_inputs = []
+for i in range(0,len(function_inputs_temp)-1):
+	function_inputs.append(function_inputs_temp[i]/total)
+
+
+desired_output = 1
 
 def fitness_func(solution, solution_idx):
 	output = numpy.sum(solution*function_inputs)
 	fitness = 1.0 / (numpy.abs(output - desired_output) + 0.000001)
 	return fitness
 
-ga_instance = pygad.GA(num_generations=100, #20000
+ga_instance = pygad.GA(num_generations=1000,
                        sol_per_pop=100,
                        num_genes=len(function_inputs),
                        num_parents_mating=2,
@@ -61,7 +68,7 @@ ga_instance = pygad.GA(num_generations=100, #20000
 if submit_button:
 	data_load_state = st.text('Running GA...')
 	ga_instance.run()
-	data_load_state.text('GA done!')
+	data_load_state.text('')
 	st.pyplot(ga_instance.plot_result())
 	solution, solution_fitness, solution_idx = ga_instance.best_solution()
 	st.write("Parameters of the best solution : {solution}".format(solution=solution))
@@ -70,17 +77,6 @@ if submit_button:
 	prediction = numpy.sum(numpy.array(function_inputs)*solution)
 	st.write("Predicted output based on the best solution : {prediction}".format(prediction=prediction))
 
-
-
-# Best rehabilitation
-# exercise(s) that maximize your fitness function and output a complete plan for each body parts (elbow,
-# upper arm, knee/lower leg and wrist). Each main rehabilitation plan should contain at least one exercise
-# for (elbow, upper arm, and knee/lower leg) and a maximum of two exercises, while the wrist may contain
-# no exercise or up to one exercise per plan.
-# Your fitness function includes three parameters; Age Category, Condition Type and No. of Exercises, where
-# Age Category and No. of Exercises are equally important but as half important as Condition Type. Your
-# fitness function can be designed as weighted sum and importance of factors can be encoded as weights wi in
-# the fitness function, where Σ	�� = 1.
 
 
 #=================
