@@ -63,7 +63,12 @@ if submit_button:
 	ga_instance.run()
 	data_load_state.text('GA done!')
 	st.pyplot(ga_instance.plot_result())
-	st.write(best_solution())
+	solution, solution_fitness, solution_idx = ga_instance.best_solution()
+	st.write("Parameters of the best solution : {solution}".format(solution=solution))
+	st.write("Fitness value of the best solution = {solution_fitness}".format(solution_fitness=solution_fitness))
+
+	prediction = numpy.sum(numpy.array(function_inputs)*solution)
+	st.write("Predicted output based on the best solution : {prediction}".format(prediction=prediction))
 
 
 
