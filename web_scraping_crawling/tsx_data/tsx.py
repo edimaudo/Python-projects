@@ -17,7 +17,7 @@ for letter in LETTERS:
 		page = requests.get(tempURL)
 		soup = BeautifulSoup(page.content, "html.parser")
 		results = soup.find(id="ctl00_cph1_divSymbols")
-		stock_elements = results.find_all("tr") #, class_="ro")
+		stock_elements = results.find_all("tr")
 		for stock_element in stock_elements:
 			individual_tsx_stock_data = stock_element.find_all("td")
 			tsx_stock_data.append(individual_tsx_stock_data)
