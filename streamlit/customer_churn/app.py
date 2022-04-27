@@ -1,5 +1,5 @@
 #================
-# Customer Churn
+# Telco. Customer Insights
 #================
 
 # Load libraries
@@ -8,28 +8,25 @@ import pandas as pd
 import plotly.express as px
 import os, os.path
 
-st.title('Customer Insights')
+st.title('Telco. Customer Insights')
 
 @st.cache
 def load_data():
-	data = pd.read_excel(DATA_URL)
+	data = pd.read_csv(DATA_URL)
 	return data
 
 # Load data
-DATA_URL = "otf.xlsx"
+DATA_URL = "customer_churn.csv"
 df = load_data()
-df_backup = df
-INPUT_TEXT = "test.txt"
-
-
-#====================
-# Side bar
-#====================
 
 #====================
 # Raw data
 #====================
 
+
+#====================
+# Data
+#====================
 # Average Total charge
 
 # Average Tenure
@@ -44,10 +41,16 @@ INPUT_TEXT = "test.txt"
 
 # Internet Service
 
+# Phone Service
+
+# Paperless
+
 # Gender
 
+# Tenure
+
 #====================
-# Machine learning
+# Churn prediction using ML
 #====================
 
 # ML Models
