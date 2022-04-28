@@ -82,7 +82,7 @@ df_info = df[['InternetService','TotalCharges']]
 df_agg = df_info.groupby('InternetService').agg(Total_Charges = ('TotalCharges', 'sum')).reset_index()
 df_agg.columns = ['Internet Service','Total Charges']
 df_agg.sort_values("Total Charges", ascending=True)
-output = px.bar(df_agg, x="Interne tService", y="Total Charges")
+output = px.bar(df_agg, x="Internet Service", y="Total Charges")
 st.plotly_chart(output)
 
 # Phone Service
@@ -120,10 +120,10 @@ st.plotly_chart(output)
 # ML Models
 st.subheader("Churn Prediction")
 with st.expander("Open to see more",expanded=False):
-    st.dataframe(df)
     # Drop first column
-    df.drop('customerID', axis=1, inplace=True)
-
+    #df.drop('customerID', axis=1, inplace=True)
+    pd.value_counts(df['Churn']).plot.bar()
+    clicked = st.button("Click me")
     # rescale all variables except the target variable
     # df_scale = df.loc[:, df.columns!='disease']
     # scaler = preprocessing.MinMaxScaler()
