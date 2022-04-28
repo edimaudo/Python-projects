@@ -10,6 +10,8 @@ import os, os.path
 
 st.title('Telco. Customer Insights')
 
+st.write("High level analysis of telco data")
+
 @st.cache
 def load_data():
 	data = pd.read_csv(DATA_URL)
@@ -22,12 +24,16 @@ df = load_data()
 #====================
 # Raw data
 #====================
+st.subheader("Raw Data")
 
+with st.expander("Open to see more",expanded=False):
+    st.dataframe(df)
 
 #====================
 # Data
 #====================
 # Average Total charge
+
 
 # Average Tenure
 
