@@ -40,6 +40,7 @@ st.write("High level analysis of telco data")
 def load_data():
     data = pd.read_csv(DATA_URL)
     data.dropna(inplace=True)
+    data.drop('customerID', axis=1, inplace=True)
     return data
 
 # Load data
@@ -56,61 +57,61 @@ with st.expander("Open to see more",expanded=False):
 #====================
 # Data visualization
 #====================
-
-# Payment Method
 st.subheader("Visualization")
-st.write("Payment Methods")
-df_payment_method = df[['PaymentMethod','TotalCharges']]
-df_payment_method_agg = df_payment_method.groupby('PaymentMethod').agg(Total_Charges = ('TotalCharges', 'sum')).reset_index()
-df_payment_method_agg.columns = ['Payment Methods','Total Charges']
-df_payment_method_agg.sort_values("Total Charges", ascending=True)
-output = px.bar(df_payment_method_agg, x="Payment Methods", y="Total Charges")
-st.plotly_chart(output)
+with st.expander("Open to see more",expanded=False):
+    # Payment Method
+    st.write("Payment Methods")
+    df_payment_method = df[['PaymentMethod','TotalCharges']]
+    df_payment_method_agg = df_payment_method.groupby('PaymentMethod').agg(Total_Charges = ('TotalCharges', 'sum')).reset_index()
+    df_payment_method_agg.columns = ['Payment Methods','Total Charges']
+    df_payment_method_agg.sort_values("Total Charges", ascending=True)
+    output = px.bar(df_payment_method_agg, x="Payment Methods", y="Total Charges")
+    st.plotly_chart(output)
 
-#Contract
-st.write("Contracts")
-df_info = df[['Contract','TotalCharges']]
-df_agg = df_info.groupby('Contract').agg(Total_Charges = ('TotalCharges', 'sum')).reset_index()
-df_agg.columns = ['Contract','Total Charges']
-df_agg.sort_values("Total Charges", ascending=True)
-output = px.bar(df_agg, x="Contract", y="Total Charges")
-st.plotly_chart(output)
+    #Contract
+    st.write("Contracts")
+    df_info = df[['Contract','TotalCharges']]
+    df_agg = df_info.groupby('Contract').agg(Total_Charges = ('TotalCharges', 'sum')).reset_index()
+    df_agg.columns = ['Contract','Total Charges']
+    df_agg.sort_values("Total Charges", ascending=True)
+    output = px.bar(df_agg, x="Contract", y="Total Charges")
+    st.plotly_chart(output)
 
-# Internet Service
-st.write("Internet Service")
-df_info = df[['InternetService','TotalCharges']]
-df_agg = df_info.groupby('InternetService').agg(Total_Charges = ('TotalCharges', 'sum')).reset_index()
-df_agg.columns = ['Internet Service','Total Charges']
-df_agg.sort_values("Total Charges", ascending=True)
-output = px.bar(df_agg, x="Internet Service", y="Total Charges")
-st.plotly_chart(output)
+    # Internet Service
+    st.write("Internet Service")
+    df_info = df[['InternetService','TotalCharges']]
+    df_agg = df_info.groupby('InternetService').agg(Total_Charges = ('TotalCharges', 'sum')).reset_index()
+    df_agg.columns = ['Internet Service','Total Charges']
+    df_agg.sort_values("Total Charges", ascending=True)
+    output = px.bar(df_agg, x="Internet Service", y="Total Charges")
+    st.plotly_chart(output)
 
-# Phone Service
-st.write("Phone Services")
-df_info = df[['PhoneService','TotalCharges']]
-df_agg = df_info.groupby('PhoneService').agg(Total_Charges = ('TotalCharges', 'sum')).reset_index()
-df_agg.columns = ['Phone Service','Total Charges']
-df_agg.sort_values("Total Charges", ascending=True)
-output = px.bar(df_agg, x="Phone Service", y="Total Charges")
-st.plotly_chart(output)
+    # Phone Service
+    st.write("Phone Services")
+    df_info = df[['PhoneService','TotalCharges']]
+    df_agg = df_info.groupby('PhoneService').agg(Total_Charges = ('TotalCharges', 'sum')).reset_index()
+    df_agg.columns = ['Phone Service','Total Charges']
+    df_agg.sort_values("Total Charges", ascending=True)
+    output = px.bar(df_agg, x="Phone Service", y="Total Charges")
+    st.plotly_chart(output)
 
-# Paperless
-st.write("Paperless Billing")
-df_info = df[['PaperlessBilling','TotalCharges']]
-df_agg = df_info.groupby('PaperlessBilling').agg(Total_Charges = ('TotalCharges', 'sum')).reset_index()
-df_agg.columns = ['Paperless Billing','Total Charges']
-df_agg.sort_values("Total Charges", ascending=True)
-output = px.bar(df_agg, x="Paperless Billing", y="Total Charges")
-st.plotly_chart(output)
+    # Paperless
+    st.write("Paperless Billing")
+    df_info = df[['PaperlessBilling','TotalCharges']]
+    df_agg = df_info.groupby('PaperlessBilling').agg(Total_Charges = ('TotalCharges', 'sum')).reset_index()
+    df_agg.columns = ['Paperless Billing','Total Charges']
+    df_agg.sort_values("Total Charges", ascending=True)
+    output = px.bar(df_agg, x="Paperless Billing", y="Total Charges")
+    st.plotly_chart(output)
 
-# Gender
-st.write("Gender")
-df_info = df[['gender','TotalCharges']]
-df_agg = df_info.groupby('gender').agg(Total_Charges = ('TotalCharges', 'sum')).reset_index()
-df_agg.columns = ['Gender','Total Charges']
-df_agg.sort_values("Total Charges", ascending=True)
-output = px.bar(df_agg, x="Gender", y="Total Charges")
-st.plotly_chart(output)
+    # Gender
+    st.write("Gender")
+    df_info = df[['gender','TotalCharges']]
+    df_agg = df_info.groupby('gender').agg(Total_Charges = ('TotalCharges', 'sum')).reset_index()
+    df_agg.columns = ['Gender','Total Charges']
+    df_agg.sort_values("Total Charges", ascending=True)
+    output = px.bar(df_agg, x="Gender", y="Total Charges")
+    st.plotly_chart(output)
 
 
 #====================
@@ -120,10 +121,12 @@ st.plotly_chart(output)
 # ML Models
 st.subheader("Churn Prediction")
 with st.expander("Open to see more",expanded=False):
-    # Drop first column
-    #df.drop('customerID', axis=1, inplace=True)
-    pd.value_counts(df['Churn']).plot.bar()
-    clicked = st.button("Click me")
+    clicked = st.button("Run ML Model")
+    if clicked:
+        # Drop first column
+        df.drop('customerID', axis=1, inplace=True)
+    
+
     # rescale all variables except the target variable
     # df_scale = df.loc[:, df.columns!='disease']
     # scaler = preprocessing.MinMaxScaler()
