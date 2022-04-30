@@ -31,6 +31,8 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.ensemble import VotingClassifier
 from sklearn.ensemble import BaggingClassifier
 from sklearn.linear_model import LogisticRegression
+from fairlearn.metrics import MetricFrame
+from fairlearn.metrics import selection_rate
 
 st.title('Telco. Customer Insights')
 
@@ -123,11 +125,7 @@ st.subheader("Churn Prediction")
 with st.expander("Open to see more",expanded=False):
     clicked = st.button("Run ML Model")
     if clicked:
-        # Drop first column
-        df.drop('customerID', axis=1, inplace=True)
-    
-
-    # rescale all variables except the target variable
+        # rescale all variables except the target variable
     # df_scale = df.loc[:, df.columns!='disease']
     # scaler = preprocessing.MinMaxScaler()
     # df_scale = scaler.fit_transform(df_scale)
