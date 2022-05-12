@@ -38,21 +38,21 @@ item_info = sales['Item Code'].unique()
 #item_info = item_info.astype('int64')
 item_info = item_info.tolist()
 item_info.sort()
-sales_item_choices = st.selectbox("Items ", item_info)
+sales_item_choices = st.selectbox("Items ", item_info, index=461)
 
 country_info = sales['Country'].unique()
 country_info = country_info.astype('str')
 country_info = country_info.tolist()
 country_info.sort()
-sales_country_choices = st.selectbox("Countries ", country_info)
+sales_country_choices = st.selectbox("Countries ", country_info,index=9)
 sales_df = sales[(sales['Country'] == sales_country_choices) & (sales['Item Code'] == sales_item_choices)]
 # Sales trend
 st.subheader("Sales Trend")
-
-st.subheader("Country Sales Performance")
-#Top 5 by country
-#bottom 5 by country
-
+sales_agg = sales_df.groupby(['Date'])['Quantity'].sum().reset_index()
+sales_agg.columns = ['Date', 'Total Quantity']
+sales_agg = sales_agg.sort_values("Date", ascending=False)
+fig = px.line(sales_agg, x="Date", y="Total Quantity")
+st.plotly_chart(fig)
 
 
 
