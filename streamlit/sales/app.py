@@ -20,10 +20,7 @@ def load_data(filename):
 	data = pd.read_excel(filename)
 	return data
 
-itemfile = "Items.xlsx"
-items = load_data(itemfile)
-receiving_file = "Receivings.xlsx"
-receiving = load_data(receiving_file)
+
 sales_file = "Sales.xlsx"
 sales = load_data(sales_file)
 supplier_file = "Suppliers.xlsx"
@@ -35,22 +32,30 @@ st.title('Sales and Supplier Insights')
 # Sales Analysis
 #------------------
 st.header("Sales Analysis")
-
-st.subheader("Sales Trend")
+st.write("Provides an overview of sales performance in every country")
 #(Country and ItemCode selection)
+item_info = sales['Item Code'].unique()
+#item_info = item_info.astype('int64')
+item_info = item_info.tolist()
+item_info.sort()
+sales_item_choices = st.selectbox("Items ", item_info)
+
+country_info = sales['Country'].unique()
+country_info = country_info.astype('str')
+country_info = country_info.tolist()
+country_info.sort()
+sales_country_choices = st.selectbox("Countries ", country_info)
+sales_df = sales[(sales['Country'] == sales_country_choices) & (sales['Item Code'] == sales_item_choices)]
 # Sales trend
+st.subheader("Sales Trend")
 
 st.subheader("Country Sales Performance")
-#Top 5 items by country
-#bottom 5 items by country
+#Top 5 by country
+#bottom 5 by country
 
-st.subheader("Item Sales Performance")
-#Top 5 Country
-#bottom 5 Country
 
-st.subheader("Sales Prediction")
-# by Countr(y/ies) & Item(s)
-# build using prophet
+
+
 
 
 #------------------
@@ -68,7 +73,7 @@ country_info.insert(0, "All") #add All
 supplier_country_choices = st.selectbox("Countries ", country_info)
 
 st.subheader("Supplier Items by Country")
-if choices == "All":
+if supplier_country_choices == "All":
     supplier_df = suppliers
 else:
     supplier_df = suppliers[suppliers['Country'] == supplier_country_choices]
