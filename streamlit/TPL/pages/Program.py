@@ -5,8 +5,8 @@ import plotly.express as px
 import os, os.path
 import pandas as pd
 import matplotlib.pyplot as plt
-# Program insights
-st.title('')
+
+st.title('Program insights')
 
 
 @st.cache
