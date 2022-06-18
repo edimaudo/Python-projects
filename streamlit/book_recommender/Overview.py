@@ -43,16 +43,24 @@ number_of_users = users['userID'].count()
 number_of_books = books['ISBN'].count()
 
 # TOP 5 PUBLISHERS AND BOTTOM 5 PUBLISHERS
-top_5_publishers = ""
-bottom_5_publishers = ""
+book_info = books.groupby(["publisher"]).size().reset_index(name='count')
+book_info.columns = ['Publisher','Count']
+book_info = book_info.sort_values("Count", ascending=False)
+
+top_5_publishers = book_info.head(5)
+bottom_5_publishers = book_info.tail(5)
 
 # TOP 5 BOOKS AND BOTTOM 5 BOOKS
 top_5_books = ""
 bottom_5_books = ""
 
 # TOP 5 AUTHORS AND BOTTOM 5 AUTHORS
-top_5_authors = ""
-bottom_5_authors = ""
+author_info = books.groupby(["bookAuthor"]).size().reset_index(name='count')
+author_info.columns = ['Author','Count']
+author_info = author_info.sort_values("Count", ascending=False)
+
+top_5_authors = author_info.head(5)
+bottom_5_authors = author_info.tail(5)
 # TOP AND BOTTOM 5 COUNTRIES
 top_5_countries = ""
 bottom_5_countries = ""
@@ -64,8 +72,11 @@ metric_container = st.container()
 metric_container.metric("Avg. Rating", average_rating)
 metric_container.metric("# of Users", number_of_users)
 metric_container.metric("# of Books", number_of_books)
-top_bottom_5_container = st.container()
-book_year_container = st.container()
+publisher_column, books_column,country_column = st.columns(3)
+publisher_column.write("this is column 1")
+publisher_column
+books_column
+country_column
 
 
 
