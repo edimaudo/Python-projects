@@ -27,6 +27,13 @@ else:
 	st.metric("User Count", 42)
 	st.metric("Average Rating", 42)	
 
+
+# Search OUtput
+# average ratings
+# publisher
+# ISBN
+# of ratings
 # user count
-# average rating
-# top countries & bottom countries
+# top 5 countries 
+# Year of publication
+# ISBN
