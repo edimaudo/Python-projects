@@ -28,13 +28,13 @@ st.subheader("Book data")
 with st.expander("Open to see more",expanded=False):
     st.dataframe(books)
 
-# Data aggregation
-# books + ratings
-
 st.subheader("Book Data Summary")
 
 # AVERAGE RATING
 average_rating = "{:.2f}".format(ratings['bookRating'].mean())
+
+# AVERAGE AGE
+average_age= "{:.2f}".format(users['Age'].mean())
 
 # NUMBER OF USERS
 number_of_users = users['userID'].count()
@@ -58,25 +58,30 @@ bottom_5_books = ""
 author_info = books.groupby(["bookAuthor"]).size().reset_index(name='count')
 author_info.columns = ['Author','Count']
 author_info = author_info.sort_values("Count", ascending=False)
-
 top_5_authors = author_info.head(5)
 bottom_5_authors = author_info.tail(5)
+
 # TOP AND BOTTOM 5 COUNTRIES
 top_5_countries = ""
 bottom_5_countries = ""
+
 # NUMBER OF BOOKS BY YEAR
 number_books_year = ""
 
 
-metric_container = st.container()
-metric_container.metric("Avg. Rating", average_rating)
-metric_container.metric("# of Users", number_of_users)
-metric_container.metric("# of Books", number_of_books)
+
+#metric_container = st.container()
+metric1_column, metric2_column,metric3_column,metric4_column = st.columns(4)
+metric1_column.metric("Avg. Rating", average_rating)
+metric2_column.metric("# of Users", number_of_users)
+metric3_column.metric("# of Books", number_of_books)
+metric4_column.metric("Avg. Age", average_age)
+
 publisher_column, books_column,country_column = st.columns(3)
 publisher_column.write("this is column 1")
-publisher_column
-books_column
-country_column
+#publisher_column
+#books_column
+#country_column
 
 
 
