@@ -33,11 +33,6 @@ with st.expander("Open to see more",expanded=False):
 
 st.subheader("Book Data Summary")
 
-# Metrics
-metric_container = st.container()
-top_bottom_5_container = st.container()
-book_year_container = st.container()
-
 # AVERAGE RATING
 average_rating = "{:.2f}".format(ratings['bookRating'].mean())
 
@@ -52,17 +47,27 @@ top_5_publishers = ""
 bottom_5_publishers = ""
 
 # TOP 5 BOOKS AND BOTTOM 5 BOOKS
-top_5_publishers = ""
-bottom_5_publishers = ""
+top_5_books = ""
+bottom_5_books = ""
 
-# TOP 5 AUTHORS and bottom 5 AUTHORS
-top_5_publishers = ""
-bottom_5_publishers = ""
+# TOP 5 AUTHORS AND BOTTOM 5 AUTHORS
+top_5_authors = ""
+bottom_5_authors = ""
 # TOP AND BOTTOM 5 COUNTRIES
-top_5_publishers = ""
-bottom_5_publishers = ""
-# NUMBER OF BOOKS BY YEAR COUNT GRAPH
+top_5_countries = ""
+bottom_5_countries = ""
+# NUMBER OF BOOKS BY YEAR
 number_books_year = ""
+
+
+metric_container = st.container()
+metric_container.metric("Avg. Rating", average_rating)
+metric_container.metric("# of Users", number_of_users)
+metric_container.metric("# of Books", number_of_books)
+top_bottom_5_container = st.container()
+book_year_container = st.container()
+
+
 
 
 
