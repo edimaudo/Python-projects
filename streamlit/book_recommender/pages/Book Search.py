@@ -14,19 +14,16 @@ ratings = load_data("BX-Book-Ratings_clean.csv")
 
 st.header("Book Overview")
 name = st.text_input("Search by Author or Book Title")
+metric1_column, metric2_column,metric3_column,metric4_column = st.columns(4)
 
-# Search OUtput
-if name != "":
-    	search_df = books.apply(lambda row: row.astype(str).str.contains('name').any(), axis=1)
+search_df = books.apply(lambda row: row.astype(str).str.contains('name').any(), axis=1)
+if search_df.empty:
+    	metric1_column.metric("Title", search_df['bookTitle'])
+		metric2_column.metric("Publisher", search_df['publisher'])
+		metric3_column.metric("ISBN", search_df['ISBN'])
+		metric1_column.metric("Publication Year", search_df['yearOfPublication']) 
+		metric2_column.metric("Average Rating", ratings[ratings['ISBN'] == search-df['ISBN']]['bookRating'])
+		metric3_column.metric("Author", search_df['bookAuthor'])
+    
 
 
-
-
-# average ratings
-# publisher
-# ISBN
-# of ratings
-# user count
-# top 5 countries 
-# Year of publication
-# ISBN
