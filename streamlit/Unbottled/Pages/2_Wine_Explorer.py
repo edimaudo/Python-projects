@@ -14,10 +14,41 @@ df = load_data()
 
 st.title('Unbottled')
 
-st.header("Country Insights")
-with st.expander(" "):
+st.header("Wine Explorer")
+country_list = df['country'].unique()
+country_list  = country_list.astype('str')
+country_list.sort()
+variety_list = df['variety'].unique()
+variety_list  = variety_list.astype('str')
+variety_list.sort()
+
+country_choice = st.selectbox("Select a Country",country_list)
+variety_choice = st.selectbox("Select a Variety",variety_list)
+price_choice = st.slider('Select a Price Range', 0, 2500, 100)
+points_choice = st.slider('Select a Points Range', 80, 100, 5)
+
+choice_df = df[(df.country == country_choice) | (df.variety == variety_choice) | (df.price.le(price_choice)) | (df.points.le(points_choice))]
+#df[(df.team == 'H') | (df.position == 'G') | (df.position == 'F')]
+choice_df = choice_df[['country','variety','price','points','description','designation','winery']]
+st.dataframe(choice_df)
+# choice_df.reset_index(drop=True, inplace=True)
+# country = df['country'][0]
+
+# choice_df = df[(df.variety == variety_choice)]
+# choice_df.reset_index(drop=True, inplace=True)
+# variety = df['variety'][0]
+# choice_df = df.price.le(price_choice)
+# choice_df.reset_index(drop=True, inplace=True)
+# price = df['price'][0]
+# choice_df = df.points.le(points_choice)
+# choice_df.reset_index(drop=True, inplace=True)
+# points = df['points'][0]
+
+
+
+
+ 
+
     
 
-st.header("Wine Explorer")
-with st.expander(" "):
     
