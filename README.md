@@ -1,3 +1,3 @@
-# python_projects
+# python Projects
 
-Python projects using different python libraries and techniques
+Python projects focused on data analytics, web scraping, building tools and solving problems
