@@ -14,7 +14,7 @@ import math
 
 st.title('Financial Modeling using Python')
 
-st.header("Project 1")
+st.header("Project 1 - Machines Manufacturing Captal Budgeting Model")
 
 st.subheader("The Problem")
 st.write("""
