@@ -37,7 +37,6 @@ st.write("""
 • For simplicity, assume that fractional phones can be sold, you do not need to round the quantity transacted.
 """)
 
-
 st.subheader("The Model")
 st.write("""
 Inputs
@@ -55,5 +54,30 @@ Inputs
 Outputs
 • Cash flows in each year, up to 20 years
 • PV of cash flows, years 1 - 20
+""")
+
+st.subheader("Bonus Problem")
+st.write("""
+Bonus Problem
+It is unrealistic to assume that price and demand are unrelated. To extend the model, we can introduce a relationship
+between price and demand, given by the following equation:
+d1 = dc − Epphone (1)
+• E: Price elasticity of demand
+• dc: Demand constant
+For elasticities and constants [(E = 500, dc = 900000), (E = 200, dc = 500000), (E = 100, dc = 300000)] (3 total
+cases), and taking the other model inputs in the Check your Work section, determine the optimal price for each
+elasticity, that is the price which maximizes the NPV.
+Notes
+• d1 is no longer an input, but an output.
+• This bonus requires optimization, which we have not yet covered in class.
+• In Excel, you can use Solver.
+• In Python, the scipy package provides optimization tools. You will probably want to use:
+- scipy.optimize.minimize_scalar
+- You will need to write a function which accepts price and returns NPV, with other model inputs fixed.
+  * Depending on how you set this up, functools.partial may be helpful for this.
+- It will actually need to return negative NPV, as the optimizer only minimizes, but we want maximum
+NPV.
+- No answers to check your work are given for this bonus. The Check your Work section only applies to
+without the bonus.
 
 """)
