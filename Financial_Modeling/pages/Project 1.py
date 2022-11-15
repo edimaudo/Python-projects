@@ -88,14 +88,27 @@ with st.expander(" "):
     """)
 
 st.subheader("Solution")
-#with st.expander(" "):
+with st.expander(" "):
     # Inputs
+    st.markdown("**Inputs**")
+    phone_choice = st.slider('# of phones per machine per year', min_value=10000, max_value=10000000, value=100000, step=500)
+    price_scrap_choice = st.slider('Scrap Value of machine', min_value=10000, max_value=1000000, value=50000, step=500)
+    phone_price_choice = st.slider('Price Per Phone', min_value=100, max_value=5000, value=2000, step=50)
+    cost_machine_adv_choice = st.slider('Price per machine or advertising year', min_value=10, max_value=1000, value=250, step=5)
+    phone_variable_cost_choice = st.slider('Variable cost per phone', min_value=10000, max_value=5000000, value=1000000, step=5000)
+    year_machine_choice = st.slider('# of years for which the machine produces phones', min_value=1, max_value=20, value=10, step=1)
+    machine_purchase_choice = st.slider('# of machines purchased', min_value=1, max_value=100, value=5, step=1)
+    phone_demand_choice = st.slider('Quantity of phones demanded in the first year', min_value=1000, max_value=1000000, value=100000, step=100)
+    percent_growth_choice = st.slider('Percentage growth in demand for each advertisement', min_value=0.01, max_value=1.0, value=0.2, step=0.01)
+    interest_choice = st.slider('Interest rate earned on investments', min_value=0.01, max_value=1.0, value=0.05, step=0.01)
+    max_year_choice = st.slider('Max Year', min_value=1, max_value=50, value=20, step=1)
+    elasticity_choice = st.slider('Elasticity', min_value=1, max_value=500, value=100, step=10)
+    demand_choice = st.slider('Demand constant', min_value=100000, max_value=5000000, value=300000, step=1000)
+    clicked = st.button("Run Model")
+    if clicked:
+        st.markdown("**Cash Flow**")
+        st.markdown("**NPV**")
+
     
-    #clicked = st.button("Run Model")
-    #if clicked:
-
-    # Output
-
-    # Cash flow
-
-    # NPV
+ 
+ 
