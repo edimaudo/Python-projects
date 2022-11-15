@@ -11,6 +11,10 @@ import random
 warnings.simplefilter(action='ignore', category=FutureWarning)
 import math 
 
+st.set_page_config(
+    page_title = "Project 1 - Machines Manufacturing Captal Budgeting Model",
+    layout = 'wide'
+)
 
 st.title('Financial Modeling using Python')
 
@@ -84,3 +88,14 @@ with st.expander(" "):
     """)
 
 st.subheader("Solution")
+#with st.expander(" "):
+    # Inputs
+    
+    #clicked = st.button("Run Model")
+    #if clicked:
+
+    # Output
+
+    # Cash flow
+
+    # NPV
