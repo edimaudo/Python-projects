@@ -107,7 +107,12 @@ with st.expander(" "):
     clicked = st.button("Run Model")
     if clicked:
         st.markdown("**Cash Flow**")
+        cashflow = []
+
         st.markdown("**NPV**")
+        npv_output = np.npv(interest_choice,[-100, 19, 49, 58, 200])
+        npv_output = "{:.2f}".format(npv_output)
+        st.write(npv_output)
 
     
  
