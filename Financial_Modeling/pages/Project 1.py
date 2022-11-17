@@ -63,7 +63,6 @@ with st.expander(" "):
 
     st.subheader("Bonus Problem")
     st.write("""
-    Bonus Problem
     It is unrealistic to assume that price and demand are unrelated. To extend the model, we can introduce a relationship
     between price and demand, given by the following equation:
     d1 = dc − Epphone (1)
@@ -110,7 +109,7 @@ with st.expander(" "):
         cashflow = []
 
         st.markdown("**NPV**")
-        npv_output = np.npv(interest_choice,[-100, 19, 49, 58, 200])
+        npv_output = np.npv(interest_choice,[-100, 19, 49, 58, 200]) # change to cashflow
         npv_output = "{:.2f}".format(npv_output)
         st.write(npv_output)
 
