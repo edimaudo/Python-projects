@@ -32,8 +32,7 @@ df = load_data()
 ######################
 # Main Page
 ######################
-st.title("Amazon reviews for Vitamin C Products")
-
+st.title("Vitamin C Amazon Product reviews")
 ######################
 # Sidebar 
 ######################
@@ -63,11 +62,9 @@ year_input = st.sidebar.multiselect("Year",year_list, year_list)
 month_input = st.sidebar.multiselect("Month",month_list, month_list)
 rating_input = st.sidebar.multiselect("Rating",rating_list, rating_list)
 
-
 ######################
 # Output
 ######################
-
 # Summary
 st.subheader("Summary")
 with st.expander(""):
@@ -86,8 +83,7 @@ with st.expander(""):
 
 #Ratings by year
 #Month rating
-#top 5 countries by avg rating
-#bottom 5 countries by avg rating
+
 
 
 # Text Analysis
