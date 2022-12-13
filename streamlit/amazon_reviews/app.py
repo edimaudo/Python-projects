@@ -7,25 +7,27 @@ import plotly.express as px
 import os, os.path
 import datetime
 import re, string
-
-######################
-# Load data
-######################
-@st.cache(allow_output_mutation=True)
-def load_data():
-    #used to fix utf-8 error (https://stackoverflow.com/questions/46000191/utf-8-codec-cant-decode-byte-0x92-in-position-18-invalid-start-byte)
-    data = pd.read_csv(DATA_URL,encoding='cp1252') 
-    return data
-DATA_URL = path + "data.csv"
-df = load_data()
+import numpy as np
 
 ######################
 # Title
 ######################
 st.set_page_config(
-    page_title="Amazon reviews for Vitamin C Products",
+    page_title="Vitamin C Products Review",
 )
 st.set_option('deprecation.showPyplotGlobalUse', False)
+
+######################
+# Load data
+######################
+path = os.path.dirname(__file__)
+@st.cache(allow_output_mutation=True)
+def load_data():
+    data = pd.read_csv(DATA_URL)#,encoding='cp1252') 
+    return data
+DATA_URL = path + "/data.csv"
+df = load_data()
+
 
 ######################
 # Main Page
@@ -39,14 +41,18 @@ year_list = df['Year'].unique()
 year_list  = year_list.astype('int')
 year_list.sort()
 
+month_list = df['Month'].unique()
+month_list  = month_list.astype('str')
+month_list = pd.DataFrame(month_list,columns = ['Month'])
+
 month_dict = {'January':1,'February':2,'March':3, 'April':4, 'May':5, 'June':6, 'July':7, 
 'August':8, 'September':9, 'October':10, 'November':11, 'December':12}
 month_list = month_list.sort_values('Month', key = lambda x : x.apply (lambda x : month_dict[x]))
+month_list = month_list['Month'].values.tolist()
 
 rating_list = df['Rating'].unique()
 rating_list  = rating_list.astype('int')
 rating_list.sort()
-
 
 country_list = df['Country'].unique()
 country_list  = country_list.astype('str')
@@ -57,11 +63,17 @@ year_input = st.sidebar.multiselect("Year",year_list, year_list)
 month_input = st.sidebar.multiselect("Month",month_list, month_list)
 rating_input = st.sidebar.multiselect("Rating",rating_list, rating_list)
 
+
+######################
+# Output
+######################
+
 # Summary
-# Avg ratings
-# of countries
-# of verified accounts
-# of ratings
+#with st.container():
+    # Avg ratings
+    # of countries
+    # of verified accounts
+    # of ratings
 
 
 # Visualization
