@@ -75,16 +75,19 @@ with st.expander(""):
 
 # Visualization
 st.subheader("Visualization")
-with st.expander(""):
-    df_info = df[(df.Country == country_input) 
+df_info = df[(df.Country == country_input) 
     & (df.Year.isin(year_input)) 
     & (df.Month.isin(month_input)) 
     & (df.Rating.isin(rating_input))]
 
 #Ratings by year
-#Month rating
-
-
+st.markdown("Yearly Ratings Trend")
+df_year = df_info[['Year','Rating']]
+df_year_agg = df_year.groupby(['Year']).agg(Total = ('Rating', 'mean')).reset_index()
+df_year_agg.columns = ['Year','Rating']
+df_year_agg.sort_values("Year", ascending=True)
+fig = px.line(df_year_agg, x="Year", y="Rating")
+st.plotly_chart(fig)
 
 # Text Analysis
 st.subheader("Text Analysis")
