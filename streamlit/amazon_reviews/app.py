@@ -79,10 +79,10 @@ with st.expander(""):
 # Visualization
 st.subheader("Visualization")
 with st.expander(""):
-    df_info = df[(df.Country == country_input) && 
-                (df.Year.isin(year_input)) &&
-                (df.Month.isin(month_input)) && 
-                ((df.Rating.isin(rating_input))]
+    df_info = df[(df.Country == country_input) 
+    & (df.Year.isin(year_input)) 
+    & (df.Month.isin(month_input)) 
+    & (df.Rating.isin(rating_input))]
 
 #Ratings by year
 #Month rating
