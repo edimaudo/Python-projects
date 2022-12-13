@@ -23,9 +23,9 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 path = os.path.dirname(__file__)
 @st.cache(allow_output_mutation=True)
 def load_data():
-    data = pd.read_csv(DATA_URL)#,encoding='cp1252') 
+    data = pd.read_csv(DATA_URL)
     return data
-DATA_URL = path + "/data.csv"
+DATA_URL = path + "data.csv"
 df = load_data()
 
 
@@ -69,14 +69,21 @@ rating_input = st.sidebar.multiselect("Rating",rating_list, rating_list)
 ######################
 
 # Summary
-#with st.container():
+st.subheader("Summary")
+with st.expander(""):
     # Avg ratings
+    st.metric("Avg. Rating", "{:.2f}".format(df["Rating"].mean()))
     # of countries
-    # of verified accounts
-    # of ratings
-
+    st.metric("# of countries",  len(df['Country'].unique()))
 
 # Visualization
+st.subheader("Visualization")
+with st.expander(""):
+    df_info = df[(df.Country == country_input) && 
+                (df.Year.isin(year_input)) &&
+                (df.Month.isin(month_input)) && 
+                ((df.Rating.isin(rating_input))]
+
 #Ratings by year
 #Month rating
 #top 5 countries by avg rating
@@ -84,3 +91,5 @@ rating_input = st.sidebar.multiselect("Rating",rating_list, rating_list)
 
 
 # Text Analysis
+st.subheader("Text Analysis")
+clicked = st.button("Generate Insights")
