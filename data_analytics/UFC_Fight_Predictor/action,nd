@@ -1,0 +1,13 @@
+
+Goal
+Predict fight outcome based on fight metric data 
+Metric - high accuracy + f1 score
+Tool - python & pycaret
+
+Steps
+review existing flow - done
+redesign flow to meet your need - done
+ - no action needed
+- build solution using pycaret
+ - get new data
+- Re-run model 
