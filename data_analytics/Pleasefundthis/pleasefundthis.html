@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>libTO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --toronto-blue: #006adb;
+            --toronto-blue-hover: #0056b3;
+            --slate-50: #f8fafc;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-600: #475569;
+            --slate-900: #0f172a;
+        }
+
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+        body {
+            background-color: var(--slate-100);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            color: var(--slate-900);
+        }
+
+        .deck-wrapper { 
+            width: 1280px; 
+            height: 720px; 
+            position: relative; 
+            overflow: hidden; 
+            background: white; 
+            box-shadow: 0 40px 100px rgba(0,0,0,0.15); 
+            border-radius: 12px;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 80px 90px;
+            display: none;
+            flex-direction: column;
+        }
+
+        .slide.active { display: flex; }
+
+        h1 { font-size: 100px; font-weight: 800; letter-spacing: -0.05em; margin: 0; }
+        h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.3em; color: var(--toronto-blue); margin-bottom: 12px; font-weight: 700; }
+        h3 { font-size: 44px; font-weight: 800; margin: 0 0 40px 0; letter-spacing: -0.02em; }
+
+        .overview-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 70px; flex-grow: 1; align-items: center; }
+
+        /* Clean Findings Grid - Perfectly Aligned Top */
+        .findings-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr 1fr; 
+            gap: 50px; 
+            flex-grow: 1; 
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .fact-matrix {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            height: 380px;
+            border: 1px solid var(--slate-200);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .fact-box {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: white;
+        }
+        .border-r { border-right: 1px solid var(--slate-200); }
+        .border-b { border-bottom: 1px solid var(--slate-200); }
+        .fact-val { font-size: 38px; font-weight: 800; color: var(--toronto-blue); margin-bottom: 4px; }
+        .fact-label { font-size: 13px; text-transform: uppercase; font-weight: 600; color: var(--slate-600); letter-spacing: 0.05em; }
+
+        .insight-list { list-style: none; padding: 0; margin: 0; }
+        .insight-list li { margin-bottom: 22px; font-size: 15px; line-height: 1.5; }
+        .insight-list strong { color: var(--slate-900); font-weight: 700; display: block; margin-bottom: 2px; }
+
+        .finding-block { margin-bottom: 0; }
+        .finding-block h4 { 
+            font-size: 20px; 
+            margin: 0 0 18px 0; 
+            color: var(--toronto-blue); 
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .finding-block p { font-size: 15px; color: var(--slate-600); line-height: 1.7; margin: 15px 0; }
+        .finding-block strong { color: var(--slate-900); }
+
+        .demo-card {
+            background: var(--slate-900);
+            border-radius: 20px;
+            padding: 50px;
+            color: white;
+            height: 70%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: auto 0;
+        }
+
+        .nav-controls {
+            position: absolute; bottom: 40px; right: 40px;
+            display: flex; align-items: center; gap: 15px;
+            background: white; padding: 10px 20px; border-radius: 99px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2); border: 1px solid var(--slate-200);
+            z-index: 100;
+        }
+        .nav-btn { 
+            width: 44px; height: 44px; border-radius: 50%; border: none; 
+            background: var(--toronto-blue); color: white; cursor: pointer; 
+            display: flex; align-items: center; justify-content: center; 
+            transition: background 0.2s, transform 0.1s; 
+        }
+        .nav-btn:hover:not(:disabled) { background: var(--toronto-blue-hover); transform: scale(1.05); }
+        .nav-btn:disabled { background: var(--slate-200); color: var(--slate-600); cursor: not-allowed; }
+        .slide-num { font-size: 13px; font-weight: 800; color: var(--slate-900); min-width: 50px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="deck-wrapper">
+    <section class="slide active">
+        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+            <h1>libTO</h1>
+            <div style="height: 6px; width: 100px; background: var(--toronto-blue); margin: 35px 0;"></div>
+            <p style="font-size: 26px; color: var(--slate-600); line-height: 1.4; max-width: 700px;">Toronto Public Library Insights using open data.</p>
+        </div>
+    </section>
+
+
+<section class="slide">
+        <h2>Executive Summary</h2>
+        
+        <!-- Topline Metrics Bar -->
+        <div style="display: flex; justify-content: space-between; margin: 20px 0 30px 0; padding: 20px; border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200);">
+            <div style="text-align: left;">
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--slate-600); margin-bottom: 5px;">Library Branches</div>
+                <div style="font-size: 36px; font-weight: 800; color: var(--toronto-blue);">100</div>
+            </div>
+            <div style="text-align: left;">
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--slate-600); margin-bottom: 5px;">Oldest Branch</div>
+                <div style="font-size: 36px; font-weight: 800; color: var(--toronto-blue);">1907</div>
+            </div>
+            <div style="text-align: left;">
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--slate-600); margin-bottom: 5px;">Service Tiers</div>
+                <div style="font-size: 36px; font-weight: 800; color: var(--toronto-blue);">3</div>
+            </div>
+            <div style="text-align: left;">
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--slate-600); margin-bottom: 5px;">Avg Square Ft</div>
+                <div style="font-size: 36px; font-weight: 800; color: var(--toronto-blue);">18,129</div>
+            </div>
+        </div>
+
+        <!-- Section Header for Insights -->
+        <div style="margin-bottom: 25px;">
+            <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.3em; color: var(--slate-600); margin: 0; display: inline-block; border-bottom: 2px solid var(--toronto-blue); padding-bottom: 4px;">Key Insights</h3>
+        </div>
+
+        <!-- Insights Grid (Original Content) -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+            <div style="border-left: 4px solid var(--toronto-blue); padding-left: 20px;">
+                <h4 style="color: var(--toronto-blue); font-size: 18px; font-weight: 800; margin: 0 0 8px 0;">Record-Breaking Interest</h4>
+                <p style="font-size: 15px; line-height: 1.5; color: var(--slate-900); margin: 0;">More people signed up for library cards in 2023 than at any point in the last decade.</p>
+            </div>
+            <div style="border-left: 4px solid var(--toronto-blue); padding-left: 20px;">
+                <h4 style="color: var(--toronto-blue); font-size: 18px; font-weight: 800; margin: 0 0 8px 0;">The "Space" Factor</h4>
+                <p style="font-size: 15px; line-height: 1.5; color: var(--slate-900); margin: 0;">The larger a branch's physical size is the more people use every service it offers.</p>
+            </div>
+            <div style="border-left: 4px solid var(--toronto-blue); padding-left: 20px;">
+                <h4 style="color: var(--toronto-blue); font-size: 18px; font-weight: 800; margin: 0 0 8px 0;">Digital Hubs</h4>
+                <p style="font-size: 15px; line-height: 1.5; color: var(--slate-900); margin: 0;">High correlation between workstation usage and registrations. While people are borrowing fewer physical books, they are increasingly using libraries as offices and tech centers.</p>
+            </div>
+            <div style="border-left: 4px solid var(--toronto-blue); padding-left: 20px;">
+                <h4 style="color: var(--toronto-blue); font-size: 18px; font-weight: 800; margin: 0 0 8px 0;">A "Top-Heavy" System</h4>
+                <p style="font-size: 15px; line-height: 1.5; color: var(--slate-900); margin: 0;">A Reference Libraries handle a huge portion of the city's total traffic, while many neighborhood branches see significantly less engagement.</p>
+            </div>
+        </div>
+    </section>
+    </section>
+<!--
+  <section class="slide">
+        <h2>Key Findings I</h2>
+        <h3>Engagement & Circulation</h3>
+        <div style="display: flex; flex-direction: column; gap: 35px; margin-top: 10px;">
+            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
+                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Annual Card Registrations</h4>
+                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">Library memberships saw a massive surge starting in 2021, reaching an all-time peak of over 220,000 new sign-ups in 2023. This suggests the library is more relevant to Torontonians today than it was before the pandemic.</p>
+            </div>
+            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
+                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Annual Circulation</h4>
+                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">The number of physical items (like books and DVDs) being borrowed has been on a steady decline since 2012. Despite a small recovery in 2022, borrowing dropped again in 2023, showing a shift away from physical media.</p>
+            </div>
+            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
+                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Annual Visits</h4>
+                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">Foot traffic crashed during the pandemic but has been climbing back steadily. While visits haven't yet reached 2012 levels, the upward trend shows that people are returning to the library as a physical "third space" for work and study.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Key Findings II</h2>
+        <h3>Metric Insights</h3>
+        <div style="display: flex; flex-direction: column; gap: 35px; margin-top: 10px;">
+            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
+                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Branch Metrics vs. Square Footage</h4>
+                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">There is a nearly perfect "stair-step" relationship between size and usage: Neighborhood libraries do well, District libraries do better, and massive Reference libraries see the most action across the board. Essentially, if you build more library space, the public will immediately fill it.</p>
+            </div>
+            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
+                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Branch Metrics Correlation</h4>
+                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">The data shows that people who come to use the computers are almost certain to also be cardholders and frequent visitors. Providing internet and workstations is currently the library’s most effective way to get people through the door and signed up.</p>
+            </div>
+            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
+                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Top 10 / Bottom 10 Branch Metrics</h4>
+                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">The Toronto Reference Library and North York Central are the "powerhouses" of the system, often seeing ten times the activity of smaller branches. Meanwhile, branches like Swansea Memorial and Todmorden Room see the lowest total volume, likely due to their limited size and resources.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Key Findings III</h2>
+        <h3>Usage & Efficiency</h3>
+        <div style="display: flex; flex-direction: column; gap: 35px; margin-top: 10px;">
+            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
+                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Annual Workstation Usage</h4>
+                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">Computer sessions dropped by nearly 90% during the pandemic when branches were closed. However, usage has more than tripled since 2021, proving that a significant portion of the population still relies on the library for essential internet access.</p>
+            </div>
+            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
+                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Toronto Library Branches by Square Footage (Map)</h4>
+                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">The library's resources are heavily concentrated in the city center and along major transit lines. This leaves "service gaps" in the outer corners of the city, where branches are smaller and further apart.</p>
+            </div>
+            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
+                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Library Impact Index</h4>
+                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">This chart identifies the "overachievers." While big libraries have the most total visitors, smaller branches like Bridlewood and Woodside Square have a much higher "impact score" because they serve a huge number of people despite having very little square footage.</p>
+            </div>
+        </div>
+    </section>   
+-->
+  
+
+    <section class="slide">
+        <h2>Demo</h2>
+        <div class="demo-card">
+            <i class="fa-solid fa-rocket" style="font-size: 40px; color: #38bdf8; margin-bottom: 20px;"></i>
+            <h4 style="font-size: 32px; margin: 0 0 15px 0;">Walkthrough</h4>
+            <p style="font-size: 18px; color: #94a3b8; line-height: 1.6; max-width: 600px;">
+                High level overview of LibTO in Zerve.ai.
+            </p>
+        </div>
+    </section>
+
+<section class="slide">
+        <h2>Roadmap</h2>
+        <h3>Next Steps</h3>
+        <div style="display: flex; flex-direction: column; justify-content: flex-start; flex-grow: 1;">
+            <div class="finding-block" style="padding: 0; margin: 0;">
+                <p style="font-weight: 700; font-size: 18px; margin-bottom: 20px; color: var(--toronto-blue);"></p>
+                <ul class="insight-list">
+                    <li><strong>Predictive Modeling:</strong> Modeling circulation, registrations, visits and workstation usage trends.</li>
+                    <li><strong>Program & Events:</strong> Design recommendation engine for Toronto Denizens.</li>
+                    <li><strong>Deeper Branch Intelligence:</strong> Provide predictive Branch level Insights and forecasts.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="nav-controls">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="slide-num" id="slideIndicator">01 / 07</div>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+</div>
+
+<script>
+    let currentSlide = 1;
+    const totalSlides = 4;
+
+    function updateUI() {
+        document.querySelectorAll('.slide').forEach((slide, index) => {
+            slide.classList.toggle('active', (index + 1) === currentSlide);
+        });
+        document.getElementById('slideIndicator').innerText = 
+            `${currentSlide.toString().padStart(2, '0')} / ${totalSlides.toString().padStart(2, '0')}`;
+        document.getElementById('prevBtn').disabled = (currentSlide === 1);
+        document.getElementById('nextBtn').disabled = (currentSlide === totalSlides);
+    }
+
+    function changeSlide(direction) {
+        const next = currentSlide + direction;
+        if (next >= 1 && next <= totalSlides) {
+            currentSlide = next;
+            updateUI();
+        }
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "ArrowRight") changeSlide(1);
+        if (e.key === "ArrowLeft") changeSlide(-1);
+    });
+
+    updateUI();
+</script>
+
+</body>
+</html>
