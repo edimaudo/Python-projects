@@ -38,9 +38,40 @@ from sklearn.ensemble import BaggingClassifier
 from sklearn.naive_bayes import MultinomialNB
 
 ## Load data
+# ## Load data
 df = pd.read_csv('PleaseFundThis.csv')
-# Clean column names immediately 
+# # Clean column names immediately 
 df.columns = df.columns.str.strip()
+#check data
+print(df.head())
+print(" ")
+#summary
+print(df.describe())
+# Get column Names
+print(" ")
+print(df.columns.tolist())
+# Remove unames columns
+df = df.drop(['Unnamed: 23','Unnamed: 24','Unnamed: 25','Unnamed: 26','Unnamed: 27','Unnamed: 28','Unnamed: 29'], axis=1) #drop unnamed columns
+print(" ")
+# Check data types
+print(df.dtypes)
+print(" ")
+# # Remove rows with missing values
+# df = df.dropna()
+print(" ")
+# Display basic statistics
+print(df.info())
+# Check for missing values
+print(df.isnull().sum())
+print(" ")
+# Display missing values as percentage
+print((df.isnull().sum() / len(df) * 100).round(2))
+# # Date update
+# df['date_launched'] = pd.to_datetime(df['date_launched'], dayfirst=True)
+# # Use the correct method to get the day name
+# df['week_name'] = df['date_launched'].dt.day_name()
+# df['year'] = df['date_launched'].dt.year
+# df['month_name'] = df['date_launched'].dt.month_name()
 
 
 # Category and Markets section
@@ -52,8 +83,9 @@ df.columns = df.columns.str.strip()
 ####################
 ## Category Treemap
 ####################
-
-
+df = pd.read_csv('PleaseFundThis.csv')
+# # Clean column names immediately 
+df.columns = df.columns.str.strip()
 if df['amt_pledged_$'].dtype == 'object':
     df['amt_pledged_$'] = pd.to_numeric(df['amt_pledged_$'].str.replace(r'[$,]', '', regex=True), errors='coerce')
 
@@ -84,7 +116,9 @@ fig_treemap.show()
 ####################
 ## Major Category Ranking
 ####################
-
+df = pd.read_csv('PleaseFundThis.csv')
+# # Clean column names immediately 
+df.columns = df.columns.str.strip()
 major_ranked = df.groupby('major_category')['amt_pledged_$'].sum().reset_index()
 major_ranked = major_ranked.sort_values('amt_pledged_$', ascending=False)
 
@@ -107,6 +141,9 @@ fig_major.show()
 ####################
 ## Minor Category Ranking
 ####################
+df = pd.read_csv('PleaseFundThis.csv')
+# # Clean column names immediately 
+df.columns = df.columns.str.strip()
 minor_ranked = df.groupby('minor_category')['amt_pledged_$'].sum().reset_index()
 minor_ranked = minor_ranked.sort_values('amt_pledged_$', ascending=False)
 
@@ -129,6 +166,9 @@ fig_minor.show()
 ####################
 ## Pledgers by Category 
 ####################
+df = pd.read_csv('PleaseFundThis.csv')
+# # Clean column names immediately 
+df.columns = df.columns.str.strip()
 if df['number_of_pledgers'].dtype == 'object':
     df['number_of_pledgers'] = pd.to_numeric(df['number_of_pledgers'].str.replace(',', ''), errors='coerce')
 
@@ -158,6 +198,9 @@ fig_treemap_pledge_count.show()
 ####################
 ## Goal $ distribution by major category 
 ####################
+df = pd.read_csv('PleaseFundThis.csv')
+# # Clean column names immediately 
+df.columns = df.columns.str.strip()
 df['goal_$'] = pd.to_numeric(df['goal_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 
 # (Log Scale)
@@ -210,6 +253,9 @@ fig_ridge.show()
 ####################
 ## Goal $ Histogram 
 ####################
+df = pd.read_csv('PleaseFundThis.csv')
+# # Clean column names immediately 
+df.columns = df.columns.str.strip()
 df_filtered = df[(df['goal_$'] > 0) & (df['goal_$'] <= 100000)].copy()
 
 fig_anchors = px.histogram(
@@ -246,6 +292,9 @@ fig_anchors.show()
 ####################
 from collections import Counter
 import re
+df = pd.read_csv('PleaseFundThis.csv')
+# # Clean column names immediately 
+df.columns = df.columns.str.strip()
 successful_titles = df[df['project_success'] == True]['project_name'].astype(str).str.lower()
 # Define common "Stopwords" to filter out (the, and, for, etc.)
 stopwords = {'the', 'and', 'for', 'your', 'with', 'from', 'this', 'that', 'project', 'new', 'help', 'make'}
@@ -282,6 +331,9 @@ fig_keywords.show()
 ####################
 ## City Success
 ####################
+df = pd.read_csv('PleaseFundThis.csv')
+# # Clean column names immediately 
+df.columns = df.columns.str.strip()
 df['city'] = df['city'].astype(str).str.strip().str.title()
 df['is_success'] = pd.to_numeric(df['project_success'], errors='coerce').fillna(0).astype(bool)
 if df['is_success'].sum() == 0:
@@ -316,7 +368,9 @@ fig_geo.show()
 ####################
 ## Creator personas
 ####################
-
+df = pd.read_csv('PleaseFundThis.csv')
+# # Clean column names immediately 
+df.columns = df.columns.str.strip()
 # Clean Numeric Data
 df['avg_amt$_per_pledger'] = pd.to_numeric(df['avg_amt$_per_pledger'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 df['number_of_pledgers'] = pd.to_numeric(df['number_of_pledgers'], errors='coerce')
@@ -407,6 +461,8 @@ fig_monthly_bar.show()
 ####################
 ## Launch window day of week
 ####################
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 df['Day_of_Week'] = df['date_launched'].dt.day_name()
 day_df = df.groupby('Day_of_Week')['success_numeric'].mean().reset_index()
 day_df['Success_Rate_Pct'] = day_df['success_numeric'] * 100
@@ -434,7 +490,8 @@ fig_daily.show()
 ####################
 ## Comparison between goal $ and amount pledged
 ####################
-
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # Clean currency columns
 for col in ['goal_$', 'amt_pledged_$']:
     df[col] = pd.to_numeric(df[col].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
@@ -503,7 +560,8 @@ fig_cat_dumbbell.show()
 ####################
 ## analyze top 20 projects to compare overfunding
 ####################
-
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # Calculate the 'overfunding' amount and select Top 20 for readability
 df['overfunding_gap'] = df['amt_pledged_$'] - df['goal_$']
 top_20 = df.sort_values(by='overfunding_gap', ascending=False).head(20).copy()
@@ -571,7 +629,8 @@ fig_dumbbell.show()
 ####################
 ## Sankey chart major category 
 ####################
-
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 top_minors = df['minor_category'].value_counts().nlargest(30).index
 df_filtered = df[df['minor_category'].isin(top_minors)].copy()
 # Map outcomes to strings
@@ -638,24 +697,40 @@ fig_sankey.show()
 ####################
 ## Parallel Categories Diagram
 ####################
-df['Video?'] = df['project_has_video'].map({True: 'Has Video', False: 'No Video'})
-df['FB Page?'] = df['project_has_facebook_page'].map({True: 'Has FB Page', False: 'No FB Page'})
-df['Outcome'] = df['project_success'].map({True: 'Successful', False: 'Failed'})
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
+df_plot = df.copy()
 
+# Ensure success is an integer (1 for True, 0 for False) for the color scale
+df_plot['Outcome_Int'] = df_plot['project_success'].astype(str).str.strip().str.upper() == 'TRUE'
+df_plot['Outcome_Int'] = df_plot['Outcome_Int'].astype(int)
+
+# Rename the columns to match your 'dimensions' list exactly
+df_plot = df_plot.rename(columns={
+    'project_has_video': 'Video?',
+    'project_has_facebook_page': 'FB Page?',
+    'project_success': 'Outcome'
+})
+
+# 2. Build the Parallel Categories Chart
 fig_parallel = px.parallel_categories(
-    df, 
+    df_plot, 
     dimensions=['Video?', 'FB Page?', 'Outcome'],
-    color='project_success', # Colors the paths based on the final result
-    color_continuous_scale=['#EF553B', '#00CC96'], # Red (Fail) to Green (Success)
+    color='Outcome_Int', # Numeric column for the color scale
+    color_continuous_scale=['#EF553B', '#00CC96'], # Red (0) to Green (1)
     title='Multi-Factor Success Paths: Video & Facebook Influence',
-    labels={'Video?': 'Video Presence', 'FB Page?': 'Facebook Presence', 'Outcome': 'Project Outcome'},
+    labels={
+        'Video?': 'Video Presence', 
+        'FB Page?': 'Facebook Presence', 
+        'Outcome': 'Project Outcome'
+    },
     template='plotly_white'
 )
 
 fig_parallel.update_layout(
     title_x=0.5,
     margin=dict(l=100, r=100, t=100, b=100),
-    coloraxis_showscale=False, # Hide the color scale bar for a cleaner look
+    coloraxis_showscale=False, # Hides the 0-1 bar on the right
     height=600
 )
 
@@ -664,6 +739,8 @@ fig_parallel.show()
 ####################
 ## Whales vs the crowd
 ####################
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 def get_quadrant(row):
     avg_pledge = row['amt_pledged_$'] / max(1, row['number_of_pledgers'])
     high_backers = row['number_of_pledgers'] > 500
@@ -703,6 +780,8 @@ fig_quadrant.show()
 ####################
 # Density pledge rewards (low)
 ####################
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # Clean Currency
 df['lowest_pledge_reward_$'] = pd.to_numeric(df['lowest_pledge_reward_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 # We filter to $200 for a readable linear scale
@@ -739,6 +818,8 @@ fig_low.show()
 ####################
 # Density pledge rewards (high)
 ####################
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 df['highest_pledge_reward_$'] = pd.to_numeric(df['highest_pledge_reward_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 # Separate by Project Result (Your provided logic)
 df_high = df[df['highest_pledge_reward_$'] <= 10000]
@@ -779,6 +860,8 @@ fig_high.show()
 ####################
 ## Correlation heatmap
 ####################
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 currency_cols = ['lowest_pledge_reward_$', 'highest_pledge_reward_$', 'amt_pledged_$', 'goal_$']
 for col in currency_cols:
     df[col] = pd.to_numeric(df[col].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
@@ -820,6 +903,8 @@ fig_heatmap.show()
 ####################
 ## ROI of Communication
 ####################
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 df['project_update_count'] = pd.to_numeric(df['project_update_count'], errors='coerce')
 df['percent_raised'] = pd.to_numeric(df['percent_raised'], errors='coerce')
 
@@ -863,6 +948,8 @@ fig_roi.show()
 ####################
 ## Funding lift looking at social media (fb pages) and funding videos
 ####################
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # Clean Currency
 df['amt_pledged_$'] = pd.to_numeric(df['amt_pledged_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 
@@ -902,6 +989,8 @@ fig_video.show()
 ####################
 ### Social media Availability
 ####################
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 df_view['fb_label'] = df_view['project_has_facebook_page'].apply(lambda x: 'Has Facebook' if x is True else 'No Facebook')
 success_df_fb = df_view[df_view['project_success'] == True]
 failed_df_fb = df_view[df_view['project_success'] == False]
@@ -937,6 +1026,8 @@ fig_fb.show()
 ####################
 ## Social media impact facebook friends count
 ####################
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 df['facebook_friends_count'] = pd.to_numeric(df['facebook_friends_count'], errors='coerce')
 
 df_view = df[df['facebook_friends_count'] <= 10000].copy()
@@ -984,7 +1075,8 @@ fig_strip.show()
 ####################
 ## Duration and goal $
 ####################
-
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # Clean Goal and Duration
 df['goal_$'] = pd.to_numeric(df['goal_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 df['duration_days'] = pd.to_numeric(df['duration_days'], errors='coerce')
@@ -1027,6 +1119,8 @@ fig_danger.show()
 ####################
 ## Most valuable backers
 ####################
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 df['avg_amt$_per_pledger'] = pd.to_numeric(df['avg_amt$_per_pledger'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 # We group by both category and success to see if successful projects attract "higher value" backers
 category_stats = df.groupby(['major_category', 'project_success'])['avg_amt$_per_pledger'].mean().reset_index()
@@ -1076,7 +1170,8 @@ fig_value.show()
 ####################
 
 from sklearn.linear_model import LinearRegression
-
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # Clean Numeric Data
 df['amt_pledged_$'] = pd.to_numeric(df['amt_pledged_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 df['project_update_count'] = pd.to_numeric(df['project_update_count'], errors='coerce')
@@ -1138,7 +1233,8 @@ fig.show()
 ####################
 ## Anatomy of an overachiever
 ####################
-
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # Create the segments based on Percent Raised
 def segment_success(percent):
     if percent >= 500: return 'Overachiever (500%+)'
@@ -1216,6 +1312,8 @@ that is your "Viral Threshold." That is the extra effort required to cross from 
 ####################
 ## Social Proof signal
 ####################
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 df['amt_pledged_$'] = pd.to_numeric(df['amt_pledged_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 df['facebook_friends_count'] = pd.to_numeric(df['facebook_friends_count'], errors='coerce')
 df['number_of_pledgers'] = pd.to_numeric(df['number_of_pledgers'], errors='coerce')
@@ -1270,6 +1368,8 @@ The "Social Proof" Takeaway: "Success isn't just about how many people you know;
 ####################
 from collections import Counter
 import re
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # Clean Currency
 df['avg_amt$_per_pledger'] = pd.to_numeric(
     df['avg_amt$_per_pledger'].astype(str).str.replace(r'[$,]', '', regex=True), 
@@ -1433,6 +1533,7 @@ test_target = test['project_success'].astype(int)
 print(" ")
 print(f"{'Model':<20} | {'Test Accuracy':<15} | {'Avg Precision':<15}")
 print("-" * 55)
+print(" ")
 for name, model in models.items():
     # Fit the model using the training features and target
     model.fit(features, target)
