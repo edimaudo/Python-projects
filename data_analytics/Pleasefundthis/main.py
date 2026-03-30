@@ -79,7 +79,6 @@ if section == "Overview":
         top_10_df = df.nlargest(10, 'amt_pledged_$')[['project_name', 'amt_pledged_$']].copy()
         top_10_df = top_10_df.rename(columns={'project_name': 'Projects','amt_pledged_$': 'Amount Pledged ($)'})
         st.dataframe(top_10_df, hide_index=True, use_container_width=True)
-
     with col2:
         # Top 10 Cities
         top_cit = df.groupby('city')['amt_pledged_$'].sum().nlargest(10).reset_index()
@@ -89,9 +88,24 @@ if section == "Overview":
         st.plotly_chart(fig, use_container_width=True)
         # Minor Category Bar
         min_cat = df.groupby('minor_category')['amt_pledged_$'].sum().nlargest(10).reset_index()
-        st.plotly_chart(px.bar(min_cat, x='minor_category', y='amt_pledged_$', title="Minor Category by Pledge"), use_container_width=True)
+        min_cat = min_cat.sort_values('amt_pledged_$')
+        fig = px.bar(min_cat, x='minor_category', y='amt_pledged_$', title="Minor Category by Amount Pledged",labels={'amt_pledged_$': 'Amount Pledged ($)','minor_category':"Minor Category"})
+        fig.update_layout(title_font_size=16,title_x=0.5)
+        st.plotly_chart(fig, use_container_width=True)
         # Donut Chart
-        st.plotly_chart(px.pie(df, names='is_success', hole=0.5, title="Project Success Distribution"), use_container_width=True)
+        fig_donut = px.pie(
+            df, 
+            names='is_success', 
+            hole=0.5, 
+            title="Project Outcome Distribution",
+            labels={'is_success': 'Result', 'True': 'Success', 'False': 'Failed'}
+        )
+
+        fig_donut.update_layout(title_x=0.5,legend_title_text='Project Outcome')
+        fig_donut.update_traces(textinfo='percent+label')
+
+        # Display in Streamlit
+        st.plotly_chart(fig_donut, use_container_width=True)
 
 # --- 4. Insights Sections (Common Structure) ---
 elif section in ["Region Insights", "City Insights", "Category Insights"]:
