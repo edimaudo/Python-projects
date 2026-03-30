@@ -1,16 +1,27 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import warnings
 import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 from sklearn.ensemble import BaggingClassifier
 from sklearn.metrics import confusion_matrix, precision_score, recall_score
 from zerve import variable
+
+APP_NAME = 'Crowdfunding Analytics'
+warnings.simplefilter(action='ignore', category=FutureWarning)
+st.set_page_config(
+    page_title=APP_NAME,
+    layout="wide"
+)
 
 # # --- 1. Data and Model Setup ---
 @st.cache_data
 def get_clean_data():
     # df = pd.read_csv('PleaseFundThis.csv')
     df = variable("load_clean_explore_data","df") 
+    df.columns = df.columns.str.strip()
     # Use the specific logic from your ledger for success calculation
     df['is_success'] = df['project_success'].astype(str).str.strip().str.upper() == 'TRUE'
     df['target'] = df['is_success'].astype(int)
@@ -34,7 +45,7 @@ df = get_clean_data()
 best_model, feature_cols = train_best_model(df)
 
 # --- 2. Navigation ---
-st.title("Project Funding Analytics")
+st.title(APP_NAME)
 section = st.radio("Navigation", ["Overview", "Region Insights", "City Insights", "Category Insights", "Success Prediction"], horizontal=True)
 
 # --- 3. Overview Section ---
@@ -43,28 +54,39 @@ if section == "Overview":
     s_rate = (df['target'].sum() / len(df)) * 100
     c1, c2, c3, c4, c5, c6 = st.columns(6)
     c1.metric("Cities", df['city'].nunique())
-    c2.metric("Regions", df['region'].nunique())
+    c2.metric("Countries", df['region'].nunique())
     c3.metric("Overall Success Rate", f"{s_rate:.1f}%")
-    c4.metric("Avg Duration", f"{df['duration_days'].mean():.1f}")
-    c5.metric("Avg Goal $", f"${df['goal_$'].mean():,.0f}")
-    c6.metric("Avg Pledge", f"${df['amt_pledged_$'].mean():,.0f}")
+    c4.metric("Avg Duration (days)", f"{df['duration_days'].mean():.1f}")
+    c5.metric("Avg Goal Amount ($)", f"{df['goal_$'].mean():,.0f}")
+    c6.metric("Avg Pledge Amount($)", f"{df['amt_pledged_$'].mean():,.0f}")
 
     col1, col2 = st.columns(2)
     with col1:
         # Top 10 Regions
         top_reg = df.groupby('region')['amt_pledged_$'].sum().nlargest(10).reset_index()
-        st.plotly_chart(px.bar(top_reg, x='amt_pledged_$', y='region', orientation='h', title="Top 10 Regions by Pledge"), use_container_width=True)
+        top_reg =  top_reg.sort_values('amt_pledged_$')
+        fig = px.bar(top_reg, x='amt_pledged_$', y='region', orientation='h', title="Top 10 Countries by Amount Pledged",  labels={'amt_pledged_$': 'Amount Pledged ($)','region':"Country"})
+        fig.update_layout(title_font_size=16,title_x=0.5)
+        st.plotly_chart(fig, use_container_width=True)
         # Major Category Bar
         maj_cat = df.groupby('major_category')['amt_pledged_$'].sum().sort_values(ascending=False).reset_index()
-        st.plotly_chart(px.bar(maj_cat, x='major_category', y='amt_pledged_$', title="Major Category by Pledge"), use_container_width=True)
+        maj_cat = maj_cat.sort_values('amt_pledged_$')
+        fig = px.bar(maj_cat, x='major_category', y='amt_pledged_$', title="Major Category by Amount Pledged",labels={'amt_pledged_$': 'Amount Pledged ($)','major_category':"Major Category"})
+        fig.update_layout(title_font_size=16,title_x=0.5)
+        st.plotly_chart(fig, use_container_width=True)
         # Top 10 Projects
-        st.write("**Top 10 Projects by Amount Pledged**")
-        st.dataframe(df.nlargest(10, 'amt_pledged_$')[['project_name', 'amt_pledged_$']], hide_index=True)
+        st.markdown("<h3 style='text-align: center;'>Top 10 Projects by Amount Pledged</h3>", unsafe_allow_html=True)
+        top_10_df = df.nlargest(10, 'amt_pledged_$')[['project_name', 'amt_pledged_$']].copy()
+        top_10_df = top_10_df.rename(columns={'project_name': 'Projects','amt_pledged_$': 'Amount Pledged ($)'})
+        st.dataframe(top_10_df, hide_index=True, use_container_width=True)
 
     with col2:
         # Top 10 Cities
         top_cit = df.groupby('city')['amt_pledged_$'].sum().nlargest(10).reset_index()
-        st.plotly_chart(px.bar(top_cit, x='amt_pledged_$', y='city', orientation='h', title="Top 10 Cities by Pledge"), use_container_width=True)
+        top_cit =  top_cit.sort_values('amt_pledged_$')
+        fig = px.bar(top_cit, x='amt_pledged_$', y='city', orientation='h', title="Top 10 Cities by Amount Pledged",  labels={'amt_pledged_$': 'Amount Pledged ($)','city':"City"})
+        fig.update_layout(title_font_size=16,title_x=0.5)
+        st.plotly_chart(fig, use_container_width=True)
         # Minor Category Bar
         min_cat = df.groupby('minor_category')['amt_pledged_$'].sum().nlargest(10).reset_index()
         st.plotly_chart(px.bar(min_cat, x='minor_category', y='amt_pledged_$', title="Minor Category by Pledge"), use_container_width=True)
@@ -97,7 +119,7 @@ elif section in ["Region Insights", "City Insights", "Category Insights"]:
     with t3:
         st.plotly_chart(px.scatter(f_df, x='goal_$', y='amt_pledged_$', color='is_success', size='number_of_pledgers'), use_container_width=True)
     with t4:
-        st.plotly_chart(px.line(f_df.sort_values(' date_launched '), x=' date_launched ', y='percent_raised'), use_container_width=True)
+        st.plotly_chart(px.line(f_df.sort_values('date_launched'), x='date_launched', y='percent_raised'), use_container_width=True)
 
 # --- 5. Success Prediction (Bagging Classifier Only) ---
 elif section == "Success Prediction":
