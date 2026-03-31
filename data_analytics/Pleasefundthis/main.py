@@ -234,14 +234,14 @@ elif section in ["Region Insights", "City Insights", "Category Insights"]:
 
 # --- Success Prediction  ---
 elif section == "Success Prediction":
-    st.header("Predictive Modeling: Bagging Classifier")
+    st.header("Project Success ")
     
     with st.expander("Enter Project Details", expanded=True):
         c1, c2, c3 = st.columns(3)
         with c1:
             in_goal = st.number_input("Goal Amount ($)", value=1000)
-            in_pledged = st.number_input("Current/Expected Pledged ($)", value=0) # Added
-            in_pledgers = st.number_input("Number of Pledgers", value=0)        # Added
+            in_pledged = st.number_input("Expected Pledges ($)", value=500)
+            in_pledgers = st.number_input("Number of Pledgers", value=50)
             in_dur = st.slider("Duration (Days)", 1, 90, 30)
         with c2:
             in_updates = st.number_input("Project Updates", value=2)
@@ -252,28 +252,29 @@ elif section == "Success Prediction":
             in_video = st.selectbox("Has Video?", ["Yes", "No"])
             
             # Month mapping
-            month_map = {
-                "January": 1, "February": 2, "March": 3, "April": 4, 
-                "May": 5, "June": 6, "July": 7, "August": 8, 
-                "September": 9, "October": 10, "November": 11, "December": 12
-            }
-            in_month_name = st.selectbox("Launch Month", list(month_map.keys()))
-            in_month = month_map[in_month_name]
+            month_options = ["January", "February", "March", "April", "May", "June", 
+                             "July", "August", "September", "October", "November", "December"]
+            in_month_name = st.selectbox("Launch Month", month_options)
+            in_month = month_options.index(in_month_name) + 1
+            
+            # Day of Week mapping (Restored)
+            day_options = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+            in_day = st.selectbox("Launch Day of Week", day_options)
             
             in_cat = st.selectbox("Category", original_cats['major_category'].unique())
             in_reg = st.selectbox("Region", original_cats['region'].unique())
-            # Removing Day of Week for brevity, but you can keep it!
 
     if st.button("Generate Prediction"):
+        # 1. Create a zeroed-out row with the exact columns used in training
         input_row = pd.DataFrame(0, index=[0], columns=X.columns)
         
-        # We now use the USER INPUT for pledged and pledgers
+        # 2. Scale the continuous inputs
         cts_data = pd.DataFrame([{
             'duration_days': in_dur,
             'goal_$': in_goal,
-            'amt_pledged_$': in_pledged,      # User Input
+            'amt_pledged_$': in_pledged,
             'project_update_count': in_updates,
-            'number_of_pledgers': in_pledgers, # User Input
+            'number_of_pledgers': in_pledgers,
             'comments_count': in_comments,
             'project_has_video': 1 if in_video == "Yes" else 0,
             'project_has_facebook_page': 1 if in_facebook == "Yes" else 0,
@@ -284,15 +285,19 @@ elif section == "Success Prediction":
         
         scaled_cts = scaler.transform(cts_data)
         
+        # Map scaled values back to the input row
         for i, col in enumerate(cts_data.columns):
             input_row[col] = scaled_cts[0][i]
 
-        # Categoricals
+        # 3. Fill One-Hot Encoded Categoricals (including Day of Week)
         if f"major_category_{in_cat}" in input_row.columns:
             input_row[f"major_category_{in_cat}"] = 1
         if f"region_{in_reg}" in input_row.columns:
             input_row[f"region_{in_reg}"] = 1
+        if f"week_name_{in_day}" in input_row.columns:
+            input_row[f"week_name_{in_day}"] = 1
 
+        # 4. Predict
         pred = best_model.predict(input_row)
         prob = best_model.predict_proba(input_row)[0][1]
         
