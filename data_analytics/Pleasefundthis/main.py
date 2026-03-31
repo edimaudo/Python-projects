@@ -234,7 +234,7 @@ elif section in ["Region Insights", "City Insights", "Category Insights"]:
 
 # --- Success Prediction  ---
 elif section == "Success Prediction":
-    st.header("Project Success ")
+    st.header("Project Success Prediction")
     
     with st.expander("Enter Project Details", expanded=True):
         c1, c2, c3 = st.columns(3)
@@ -242,10 +242,10 @@ elif section == "Success Prediction":
             in_goal = st.number_input("Goal Amount ($)", value=1000)
             in_pledged = st.number_input("Expected Pledges ($)", value=500)
             in_pledgers = st.number_input("Number of Pledgers", value=50)
-            in_dur = st.slider("Duration (Days)", 1, 90, 30)
+            in_dur = st.slider("Project Duration (Days)", 1, 90, 30)
         with c2:
-            in_updates = st.number_input("Project Updates", value=2)
-            in_comments = st.number_input("Comments Count", value=5)
+            in_updates = st.number_input("# of Project Updates", value=2)
+            in_comments = st.number_input("# of Comments", value=5)
             in_pledge_rewards = st.selectbox("Pledge Rewards?", ["Yes", "No"])
             in_facebook = st.selectbox("Has Facebook?", ["Yes", "No"])
         with c3:
@@ -260,7 +260,6 @@ elif section == "Success Prediction":
             # Day of Week mapping (Restored)
             day_options = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
             in_day = st.selectbox("Launch Day of Week", day_options)
-            
             in_cat = st.selectbox("Category", original_cats['major_category'].unique())
             in_reg = st.selectbox("Region", original_cats['region'].unique())
 
@@ -279,7 +278,7 @@ elif section == "Success Prediction":
             'project_has_video': 1 if in_video == "Yes" else 0,
             'project_has_facebook_page': 1 if in_facebook == "Yes" else 0,
             'project_has_pledge_rewards': 1 if in_pledge_rewards == "Yes" else 0,
-            'year': 2026,
+            'year': 2012,
             'month': in_month
         }])
         
