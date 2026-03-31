@@ -135,7 +135,7 @@ elif section in ["Region Insights", "City Insights", "Category Insights"]:
         fig = px.bar(f_df.groupby('minor_category')['amt_pledged_$'].sum().reset_index(), 
                      x='minor_category', y='amt_pledged_$',
                      labels={'amt_pledged_$': 'Amount Pledged ($)','minor_category':"Minor Category"})
-        fig.update_layout(title_font_size=16, title_x=0.5,title='')
+        #fig.update_layout(title_font_size=16, title_x=0.5,title='')
         st.plotly_chart(fig, use_container_width=True)
 
     with t2:
@@ -149,7 +149,7 @@ elif section in ["Region Insights", "City Insights", "Category Insights"]:
             labels={'amt_pledged_$': 'Amount Pledged ($)', 'Outcome': 'Project Outcome'},
             template='plotly_white'
         )
-        fig_hist.update_layout(title_font_size=16)
+        #fig_hist.update_layout(title_font_size=16)
         st.plotly_chart(fig_hist, use_container_width=True)
 
     with t3:
@@ -169,7 +169,7 @@ elif section in ["Region Insights", "City Insights", "Category Insights"]:
             },
             template='plotly_white'
         )
-        fig_scatter.update_layout(title_font_size=16, title_x=0.5)
+        #fig_scatter.update_layout(title_font_size=16, title_x=0.5)
         st.plotly_chart(fig_scatter, use_container_width=True)
 
     with t4:
@@ -197,9 +197,9 @@ elif section in ["Region Insights", "City Insights", "Category Insights"]:
         )
 
         fig_monthly_bar.update_layout(
-            title_x=0.5, 
+            #title_x=0.5, 
             showlegend=False, 
-            title_font_size=16,
+            #title_font_size=16,
             xaxis_title="Month of Launch"
         )
         st.plotly_chart(fig_monthly_bar, use_container_width=True)
