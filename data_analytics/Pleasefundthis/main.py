@@ -7,6 +7,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from sklearn.ensemble import BaggingClassifier
 from sklearn.metrics import confusion_matrix, precision_score, recall_score
+from sklearn.preprocessing import MinMaxScaler
 from zerve import variable
 
 APP_NAME = 'Crowdfunding Analytics'
@@ -25,19 +26,46 @@ def get_clean_data():
     return df
 
 
-@st.cache_resource
-def train_best_model(df):
-    numeric_df = df.select_dtypes(include=[np.number]).fillna(0)
-    features = numeric_df.iloc[:, 0:166]
-    target = df['target']
+@st.cache_data
+def get_processed_data(df):
+    df['date_launched'] = pd.to_datetime(df['date_launched'], dayfirst=True)
+    df['week_name'] = df['date_launched'].dt.day_name()
+    df['year'] = df['date_launched'].dt.year
+    df['month'] = df['date_launched'].dt.month
     
-    # Using only the Bagging Classifier as requested
-    model = BaggingClassifier(random_state=22)
-    model.fit(features, target)
-    return model, features.columns
+
+    df['project_success'] = df['project_success'].replace({False: 0, True: 1, "FALSE": 0, "TRUE": 1})
+    df['project_has_video'] = df['project_has_video'].replace({False: 0, True: 1, "FALSE": 0, "TRUE": 1})
+    df['project_has_facebook_page'] = df['project_has_facebook_page'].replace({"No": 0, "Yes": 1})
+    df['project_has_pledge_rewards'] = df['project_has_pledge_rewards'].replace({"No": 0, "Yes": 1})
+    
+
+    cat_cols = ['major_category', 'region', 'week_name']
+    df_cat = pd.get_dummies(df[cat_cols])
+    
+    cts_cols = ['duration_days', 'goal_$', 'amt_pledged_$', 'project_update_count', 
+                'number_of_pledgers', 'comments_count', 'project_has_video', 
+                'project_has_facebook_page', 'project_has_pledge_rewards', 'year', 'month']
+    
+    scaler = MinMaxScaler()
+    df_cts = pd.DataFrame(scaler.fit_transform(df[cts_cols]), columns=cts_cols)
+    
+    X = pd.concat([df_cts, df_cat], axis=1)
+    y = df['project_success'].astype(int)
+    
+    return X, y, scaler, cat_cols, df[cat_cols]
+
+@st.cache_resource
+def train_model(X, y):
+    model = BaggingClassifier(n_estimators=10, random_state=22)
+    model.fit(X, y)
+    return model
+
 
 df = get_clean_data()
-best_model, feature_cols = train_best_model(df)
+model_df = get_clean_data()
+X, y, scaler, cat_names, original_cats = get_processed_data(model_df)
+best_model = train_model(X, y)
 
 
 st.title(APP_NAME)
@@ -204,12 +232,12 @@ elif section in ["Region Insights", "City Insights", "Category Insights"]:
         )
         st.plotly_chart(fig_monthly_bar, use_container_width=True)
 
-# --- Success Prediction (Bagging Classifier Only) ---
+# --- Success Prediction  ---
 elif section == "Success Prediction":
-    st.header("Predictive Modeling: Bagging Classifier")
+    st.header("Project Success Predictive Modeling")
     
     with st.expander("Enter Project Details", expanded=True):
-        c1, c2 = st.columns(2)
+        c1, c2, c3 = st.columns(3)
         with c1:
             in_goal = st.number_input("Goal Amount ($)", value=1000)
             in_dur = st.slider("Duration (Days)", 1, 90, 30)
@@ -217,30 +245,43 @@ elif section == "Success Prediction":
             in_updates = st.number_input("Project Updates", value=2)
         with c2:
             in_comments = st.number_input("Comments Count", value=5)
-            in_pledge_levels = st.number_input("Pledge Levels", value=5)
-            in_facebook = st.selectbox("Has Facebook?", [1, 0])
-            in_video = st.selectbox("Has Video?", [1, 0])
+            in_pledge_rewards = st.selectbox("Pledge Rewards?", ["Yes", "No"])
+            in_facebook = st.selectbox("Has Facebook?", ["Yes", "No"])
+            in_video = st.selectbox("Has Video?", ["Yes", "No"])
+        with c3:
+            in_cat = st.selectbox("Category", original_cats['major_category'].unique())
+            in_reg = st.selectbox("Region", original_cats['region'].unique())
+            in_day = st.selectbox("Launch Day", ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"])
 
     if st.button("Generate Prediction"):
-        # Create input array matching training features
-        input_data = np.zeros((1, len(feature_cols)))
-        # Map user inputs to the correct positions (assuming specific indices from your 166-col slice)
-        # Note: In a production app, you would map these by column name
-        input_data[0, 0] = in_dur
-        input_data[0, 1] = in_goal
-        input_data[0, 2] = in_updates
-        input_data[0, 3] = in_pledgers
+        input_row = pd.DataFrame(0, index=[0], columns=X.columns)
+        cts_data = [[
+            in_dur, in_goal, 0, in_updates, in_pledgers, in_comments,
+            1 if in_video == "Yes" else 0,
+            1 if in_facebook == "Yes" else 0,
+            1 if in_pledge_rewards == "Yes" else 0,
+            2012, 1 # Default Year/Month
+        ]]
+        scaled_cts = scaler.transform(cts_data)
         
-        pred = best_model.predict(input_data)
-        prob = best_model.predict_proba(input_data)[0][1]
+        cts_cols = ['duration_days', 'goal_$', 'amt_pledged_$', 'project_update_count', 
+                    'number_of_pledgers', 'comments_count', 'project_has_video', 
+                    'project_has_facebook_page', 'project_has_pledge_rewards', 'year', 'month']
+        
+        for i, col in enumerate(cts_cols):
+            input_row[col] = scaled_cts[0][i]
+            
+        if f"major_category_{in_cat}" in input_row.columns:
+            input_row[f"major_category_{in_cat}"] = 1
+        if f"region_{in_reg}" in input_row.columns:
+            input_row[f"region_{in_reg}"] = 1
+        if f"week_name_{in_day}" in input_row.columns:
+            input_row[f"week_name_{in_day}"] = 1
+
+        pred = best_model.predict(input_row)
+        prob = best_model.predict_proba(input_row)[0][1]
         
         if pred[0] == 1:
-            st.success(f"Prediction: SUCCESS (Confidence: {prob:.2%})")
+            st.success(f"Prediction: **SUCCESS** (Confidence: {prob:.2%})")
         else:
-            st.error(f"Prediction: FAILURE (Confidence: {1-prob:.2%})")
-            
-        st.write("---")
-        st.write("Current Model Performance (Bagging Classifier):")
-        test_pred = best_model.predict(df[feature_cols])
-        st.text(f"Precision: {precision_score(df['target'], test_pred):.2f}")
-        st.text(f"Recall: {recall_score(df['target'], test_pred):.2f}")
+            st.error(f"Prediction: **FAILURE** (Confidence: {1-prob:.2%})")
