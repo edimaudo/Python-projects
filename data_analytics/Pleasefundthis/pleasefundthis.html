@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>libTO</title>
+    <title>PleasefundThis</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -143,143 +143,106 @@
 <div class="deck-wrapper">
     <section class="slide active">
         <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
-            <h1>libTO</h1>
+            <h1>CrowdFunding Analytics</h1>
             <div style="height: 6px; width: 100px; background: var(--toronto-blue); margin: 35px 0;"></div>
-            <p style="font-size: 26px; color: var(--slate-600); line-height: 1.4; max-width: 700px;">Toronto Public Library Insights using open data.</p>
+            <p style="font-size: 26px; color: var(--slate-600); line-height: 1.4; max-width: 700px;">A look into what drives Crowdfunding success.</p>
         </div>
     </section>
 
 
 <section class="slide">
-        <h2>Executive Summary</h2>
+    <h2>Executive Summary</h2>
+    
+    <!-- Topline Metrics Bar [source: 1] -->
+    <div style="display: flex; justify-content: space-between; margin: 10px 0 20px 0; padding: 15px; border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200);">
+        <div style="text-align: left;">
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--slate-600); margin-bottom: 5px;"># of Cities</div>
+            <div style="font-size: 32px; font-weight: 800; color: var(--toronto-blue);">3607</div>
+        </div>
+        <div style="text-align: left;">
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--slate-600); margin-bottom: 5px;"># of Countries</div>
+            <div style="font-size: 32px; font-weight: 800; color: var(--toronto-blue);">135</div>
+        </div>
+        <div style="text-align: left;">
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--slate-600); margin-bottom: 5px;">Avg. Pledge Amount ($)</div>
+            <div style="font-size: 32px; font-weight: 800; color: var(--toronto-blue);">10196</div>
+        </div>
+        <div style="text-align: left;">
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--slate-600); margin-bottom: 5px;">Avg. Goal Amount ($)</div>
+            <div style="font-size: 32px; font-weight: 800; color: var(--toronto-blue);">20575</div>
+        </div>
+        <div style="text-align: left;">
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--slate-600); margin-bottom: 5px;">Project Success Rate (%)</div>
+            <div style="font-size: 32px; font-weight: 800; color: var(--toronto-blue);">49.5</div>
+        </div>
+    </div>
+
+    <!-- 2x2 Grid with Verbatim Content -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 20px; flex-grow: 1; overflow: hidden; padding-bottom: 20px;">
         
-        <!-- Topline Metrics Bar -->
-        <div style="display: flex; justify-content: space-between; margin: 20px 0 30px 0; padding: 20px; border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200);">
-            <div style="text-align: left;">
-                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--slate-600); margin-bottom: 5px;">Library Branches</div>
-                <div style="font-size: 36px; font-weight: 800; color: var(--toronto-blue);">100</div>
-            </div>
-            <div style="text-align: left;">
-                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--slate-600); margin-bottom: 5px;">Oldest Branch</div>
-                <div style="font-size: 36px; font-weight: 800; color: var(--toronto-blue);">1907</div>
-            </div>
-            <div style="text-align: left;">
-                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--slate-600); margin-bottom: 5px;">Service Tiers</div>
-                <div style="font-size: 36px; font-weight: 800; color: var(--toronto-blue);">3</div>
-            </div>
-            <div style="text-align: left;">
-                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--slate-600); margin-bottom: 5px;">Avg Square Ft</div>
-                <div style="font-size: 36px; font-weight: 800; color: var(--toronto-blue);">18,129</div>
-            </div>
+        <!-- Section 1 -->
+        <div style="border-left: 4px solid var(--toronto-blue); padding: 0 15px; overflow-y: auto;">
+            <h4 style="color: var(--toronto-blue); font-size: 16px; font-weight: 800; margin: 0 0 10px 0;">1. Category & Market Insights</h4>
+            <p style="font-size: 13px; line-height: 1.5; color: var(--slate-900); margin: 0;">
+                The <head>"Firsts"</head> Advantage: Backers are most attracted to tangible, traditional media "firsts." The keyword "Album" is the single most powerful driver of funded projects.<br><br>
+                Physical Dominance: In Tech and Design, success is extremely narrow; almost all funding goes to Hardware and Product Design, leaving very little for software or digital-only concepts.<br><br>
+                The "Hub" Effect: Success isn't about being in a mega-city. Smaller, high-trust creative hubs like Edinburgh (90.5% success) outperform global centers like Brooklyn.
+            </p>
         </div>
 
-        <!-- Section Header for Insights -->
-        <div style="margin-bottom: 25px;">
-            <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.3em; color: var(--slate-600); margin: 0; display: inline-block; border-bottom: 2px solid var(--toronto-blue); padding-bottom: 4px;">Key Insights</h3>
+        <!-- Section 2 -->
+        <div style="border-left: 4px solid var(--toronto-blue); padding: 0 15px; overflow-y: auto;">
+            <h4 style="color: var(--toronto-blue); font-size: 16px; font-weight: 800; margin: 0 0 10px 0;">2. Performance Trends & Comparison</h4>
+            <p style="font-size: 13px; line-height: 1.5; color: var(--slate-900); margin: 0;">
+                The Funding Gap: Technology and Design creators set high goals but hit them most accurately. Publishing and Fashion creators are the most over-ambitious, often raising only a tiny fraction of their ask.<br><br>
+                Launch Day Dead-Zone: While mid-week launches are consistent, Saturday is a clear outlier for failure, as potential backers are less likely to engage with crowdfunding platforms on weekends.<br><br>
+                The Magnitude of Viral Success: Super-successes (like Oculus) don't just "hit" goals; they blow past them by millions, proving that crowdfunding has a "winner-take-all" viral ceiling.
+            </p>
         </div>
 
-        <!-- Insights Grid (Original Content) -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-            <div style="border-left: 4px solid var(--toronto-blue); padding-left: 20px;">
-                <h4 style="color: var(--toronto-blue); font-size: 18px; font-weight: 800; margin: 0 0 8px 0;">Record-Breaking Interest</h4>
-                <p style="font-size: 15px; line-height: 1.5; color: var(--slate-900); margin: 0;">More people signed up for library cards in 2023 than at any point in the last decade.</p>
-            </div>
-            <div style="border-left: 4px solid var(--toronto-blue); padding-left: 20px;">
-                <h4 style="color: var(--toronto-blue); font-size: 18px; font-weight: 800; margin: 0 0 8px 0;">The "Space" Factor</h4>
-                <p style="font-size: 15px; line-height: 1.5; color: var(--slate-900); margin: 0;">The larger a branch's physical size is the more people use every service it offers.</p>
-            </div>
-            <div style="border-left: 4px solid var(--toronto-blue); padding-left: 20px;">
-                <h4 style="color: var(--toronto-blue); font-size: 18px; font-weight: 800; margin: 0 0 8px 0;">Digital Hubs</h4>
-                <p style="font-size: 15px; line-height: 1.5; color: var(--slate-900); margin: 0;">High correlation between workstation usage and registrations. While people are borrowing fewer physical books, they are increasingly using libraries as offices and tech centers.</p>
-            </div>
-            <div style="border-left: 4px solid var(--toronto-blue); padding-left: 20px;">
-                <h4 style="color: var(--toronto-blue); font-size: 18px; font-weight: 800; margin: 0 0 8px 0;">A "Top-Heavy" System</h4>
-                <p style="font-size: 15px; line-height: 1.5; color: var(--slate-900); margin: 0;">A Reference Libraries handle a huge portion of the city's total traffic, while many neighborhood branches see significantly less engagement.</p>
-            </div>
+        <!-- Section 3 -->
+        <div style="border-left: 4px solid var(--toronto-blue); padding: 0 15px; overflow-y: auto;">
+            <h4 style="color: var(--toronto-blue); font-size: 16px; font-weight: 800; margin: 0 0 10px 0;">3. Flow & Distribution</h4>
+            <p style="font-size: 13px; line-height: 1.5; color: var(--slate-900); margin: 0;">
+                Low-Cost Mass Appeal: "The Crowd" strategy (low cost, mass appeal) has a 93.7% success rate, proving you don't need high-ticket items to succeed if your volume is high.<br><br>
+                Buy-in Friction: Successful projects keep their entry-level rewards under $200. Failed projects often attempt to set their lowest "buy-in" far too high, killing momentum.<br><br>
+                Niche Flow: Creative "niche" categories like Dance, Theater, and Comics have a much smoother flow toward success than broad, high-competition categories like Technology.
+            </p>
         </div>
-    </section>
-    </section>
-<!--
-  <section class="slide">
-        <h2>Key Findings I</h2>
-        <h3>Engagement & Circulation</h3>
-        <div style="display: flex; flex-direction: column; gap: 35px; margin-top: 10px;">
-            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
-                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Annual Card Registrations</h4>
-                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">Library memberships saw a massive surge starting in 2021, reaching an all-time peak of over 220,000 new sign-ups in 2023. This suggests the library is more relevant to Torontonians today than it was before the pandemic.</p>
-            </div>
-            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
-                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Annual Circulation</h4>
-                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">The number of physical items (like books and DVDs) being borrowed has been on a steady decline since 2012. Despite a small recovery in 2022, borrowing dropped again in 2023, showing a shift away from physical media.</p>
-            </div>
-            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
-                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Annual Visits</h4>
-                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">Foot traffic crashed during the pandemic but has been climbing back steadily. While visits haven't yet reached 2012 levels, the upward trend shows that people are returning to the library as a physical "third space" for work and study.</p>
-            </div>
-        </div>
-    </section>
 
-    <section class="slide">
-        <h2>Key Findings II</h2>
-        <h3>Metric Insights</h3>
-        <div style="display: flex; flex-direction: column; gap: 35px; margin-top: 10px;">
-            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
-                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Branch Metrics vs. Square Footage</h4>
-                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">There is a nearly perfect "stair-step" relationship between size and usage: Neighborhood libraries do well, District libraries do better, and massive Reference libraries see the most action across the board. Essentially, if you build more library space, the public will immediately fill it.</p>
-            </div>
-            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
-                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Branch Metrics Correlation</h4>
-                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">The data shows that people who come to use the computers are almost certain to also be cardholders and frequent visitors. Providing internet and workstations is currently the library’s most effective way to get people through the door and signed up.</p>
-            </div>
-            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
-                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Top 10 / Bottom 10 Branch Metrics</h4>
-                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">The Toronto Reference Library and North York Central are the "powerhouses" of the system, often seeing ten times the activity of smaller branches. Meanwhile, branches like Swansea Memorial and Todmorden Room see the lowest total volume, likely due to their limited size and resources.</p>
-            </div>
+        <!-- Section 4 -->
+        <div style="border-left: 4px solid var(--toronto-blue); padding: 0 15px; overflow-y: auto;">
+            <h4 style="color: var(--toronto-blue); font-size: 16px; font-weight: 800; margin: 0 0 10px 0;">4. Success Drivers & Indicators</h4>
+            <p style="font-size: 13px; line-height: 1.5; color: var(--slate-900); margin: 0;">
+                The "Danger Zone": The highest concentration of failures occurs at the 30-day mark for goals under $10,000. This is where lack of preparation meets the reality of the platform.<br><br>
+                Backer Unit Value: Technology backers spend the most per person ($140), whereas Games and Comics require a much larger "volume" of people to reach the same goal due to lower average spends ($45).<br><br>
+                The Social Proof Paradox: A Facebook presence is required for legitimacy, but a high Facebook friend count has a very low correlation (0.07) with actually winning, meaning you must market to strangers to succeed.
+            </p>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="slide">
-        <h2>Key Findings III</h2>
-        <h3>Usage & Efficiency</h3>
-        <div style="display: flex; flex-direction: column; gap: 35px; margin-top: 10px;">
-            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
-                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Annual Workstation Usage</h4>
-                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">Computer sessions dropped by nearly 90% during the pandemic when branches were closed. However, usage has more than tripled since 2021, proving that a significant portion of the population still relies on the library for essential internet access.</p>
-            </div>
-            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
-                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Toronto Library Branches by Square Footage (Map)</h4>
-                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">The library's resources are heavily concentrated in the city center and along major transit lines. This leaves "service gaps" in the outer corners of the city, where branches are smaller and further apart.</p>
-            </div>
-            <div style="border-left: 5px solid var(--toronto-blue); padding-left: 25px;">
-                <h4 style="color: var(--toronto-blue); font-size: 24px; font-weight: 800; margin-bottom: 8px; margin-top: 0;">Library Impact Index</h4>
-                <p style="font-size: 19px; line-height: 1.4; color: var(--slate-900); margin: 0;">This chart identifies the "overachievers." While big libraries have the most total visitors, smaller branches like Bridlewood and Woodside Square have a much higher "impact score" because they serve a huge number of people despite having very little square footage.</p>
-            </div>
-        </div>
-    </section>   
--->
   
-
-    <section class="slide">
+<section class="slide">
         <h2>Demo</h2>
         <div class="demo-card">
             <i class="fa-solid fa-rocket" style="font-size: 40px; color: #38bdf8; margin-bottom: 20px;"></i>
-            <h4 style="font-size: 32px; margin: 0 0 15px 0;">Walkthrough</h4>
+            <h4 style="font-size: 32px; margin: 0 0 15px 0;">Walkthrough of Analysis and Streamlit app</h4>
             <p style="font-size: 18px; color: #94a3b8; line-height: 1.6; max-width: 600px;">
-                High level overview of LibTO in Zerve.ai.
+                
             </p>
         </div>
     </section>
 
 <section class="slide">
-        <h2>Roadmap</h2>
-        <h3>Next Steps</h3>
+        <h2>Next Steps</h2>
+        <h3></h3>
         <div style="display: flex; flex-direction: column; justify-content: flex-start; flex-grow: 1;">
             <div class="finding-block" style="padding: 0; margin: 0;">
                 <p style="font-weight: 700; font-size: 18px; margin-bottom: 20px; color: var(--toronto-blue);"></p>
                 <ul class="insight-list">
-                    <li><strong>Predictive Modeling:</strong> Modeling circulation, registrations, visits and workstation usage trends.</li>
-                    <li><strong>Program & Events:</strong> Design recommendation engine for Toronto Denizens.</li>
-                    <li><strong>Deeper Branch Intelligence:</strong> Provide predictive Branch level Insights and forecasts.</li>
+                    <li><strong>Next Best Pledge:</strong> Build Model to Predict Pledge Amount</li>
+                    <li><strong>Category Intelligence:</strong> Give the users the ability to ask questions usin LLMs so that they are better setup for success</li>
                 </ul>
             </div>
         </div>
