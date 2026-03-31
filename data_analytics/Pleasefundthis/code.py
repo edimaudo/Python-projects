@@ -1438,6 +1438,8 @@ Strategy Takeaway: "If you want to raise more money per person, you shouldn't ju
 ##=====================
 # Predictive Modeling
 ##=====================
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # Date update
 df['date_launched'] = pd.to_datetime(df['date_launched'], dayfirst=True)
 # Use the correct method to get the day name
