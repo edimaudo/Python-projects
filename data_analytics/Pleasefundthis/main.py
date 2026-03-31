@@ -41,7 +41,7 @@ best_model, feature_cols = train_best_model(df)
 
 
 st.title(APP_NAME)
-section = st.radio("Navigation", ["Overview", "Region Insights", "City Insights", "Category Insights", "Success Prediction"], horizontal=True)
+section = st.radio("", ["Overview", "Region Insights", "City Insights", "Category Insights", "Success Prediction"], horizontal=True)
 
 # --- Overview Section ---
 if section == "Overview":
@@ -55,7 +55,7 @@ if section == "Overview":
     c5.metric("Avg Goal Amount ($)", f"{df['goal_$'].mean():,.0f}")
     c6.metric("Avg Pledge Amount($)", f"{df['amt_pledged_$'].mean():,.0f}")
 
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns(2) 
     with col1:
         # Top 10 Regions
         top_reg = df.groupby('region')['amt_pledged_$'].sum().nlargest(10).reset_index()
