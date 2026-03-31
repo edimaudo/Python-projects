@@ -6,6 +6,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from sklearn.ensemble import BaggingClassifier
+from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import confusion_matrix, precision_score, recall_score
 from sklearn.preprocessing import MinMaxScaler
 from zerve import variable
@@ -43,8 +44,12 @@ def get_processed_data(df):
     cat_cols = ['major_category', 'region', 'week_name']
     df_cat = pd.get_dummies(df[cat_cols])
     
-    cts_cols = ['duration_days', 'goal_$', 'amt_pledged_$', 'project_update_count', 
-                'number_of_pledgers', 'comments_count', 'project_has_video', 
+    cts_cols = ['duration_days', 'goal_$', 
+                #'amt_pledged_$'
+                #, 'project_update_count', 
+                #'number_of_pledgers', 
+                #'comments_count', 
+                'project_has_video', 
                 'project_has_facebook_page', 'project_has_pledge_rewards', 'year', 'month']
     
     scaler = MinMaxScaler()
@@ -57,7 +62,7 @@ def get_processed_data(df):
 
 @st.cache_resource
 def train_model(X, y):
-    model = BaggingClassifier(n_estimators=10, random_state=22)
+    model = GradientBoostingClassifier(n_estimators=200)
     model.fit(X, y)
     return model
 
@@ -240,12 +245,12 @@ elif section == "Success Prediction":
         c1, c2, c3 = st.columns(3)
         with c1:
             in_goal = st.number_input("Goal Amount ($)", value=1000)
-            in_pledged = st.number_input("Expected Pledges ($)", value=500)
-            in_pledgers = st.number_input("Number of Pledgers", value=50)
+            #in_pledged = st.number_input("Expected Pledges ($)", value=500)
+            #in_pledgers = st.number_input("Number of Pledgers", value=50)
             in_dur = st.slider("Project Duration (Days)", 1, 90, 30)
         with c2:
-            in_updates = st.number_input("# of Project Updates", value=2)
-            in_comments = st.number_input("# of Comments", value=5)
+            #in_updates = st.number_input("# of Project Updates", value=2)
+            #in_comments = st.number_input("# of Comments", value=5)
             in_pledge_rewards = st.selectbox("Pledge Rewards?", ["Yes", "No"])
             in_facebook = st.selectbox("Has Facebook?", ["Yes", "No"])
         with c3:
@@ -271,10 +276,10 @@ elif section == "Success Prediction":
         cts_data = pd.DataFrame([{
             'duration_days': in_dur,
             'goal_$': in_goal,
-            'amt_pledged_$': in_pledged,
-            'project_update_count': in_updates,
-            'number_of_pledgers': in_pledgers,
-            'comments_count': in_comments,
+            #'amt_pledged_$': in_pledged,
+            #'project_update_count': in_updates,
+            #'number_of_pledgers': in_pledgers,
+            #'comments_count': in_comments,
             'project_has_video': 1 if in_video == "Yes" else 0,
             'project_has_facebook_page': 1 if in_facebook == "Yes" else 0,
             'project_has_pledge_rewards': 1 if in_pledge_rewards == "Yes" else 0,
