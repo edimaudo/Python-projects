@@ -16,13 +16,10 @@ st.set_page_config(
     layout="wide"
 )
 
-# # --- 1. Data and Model Setup ---
 @st.cache_data
 def get_clean_data():
-    # df = pd.read_csv('PleaseFundThis.csv')
-    df = variable("load_clean_explore_data","df") 
+    df = variable("load_clean_explore_data","df")  # df = pd.read_csv('PleaseFundThis.csv')
     df.columns = df.columns.str.strip()
-    # Use the specific logic from your ledger for success calculation
     df['is_success'] = df['project_success'].astype(str).str.strip().str.upper() == 'TRUE'
     df['target'] = df['is_success'].astype(int)
     return df
@@ -30,8 +27,6 @@ def get_clean_data():
 
 @st.cache_resource
 def train_best_model(df):
-    # Mimicking the specific preprocessing from your code
-    # Selecting numeric features for the 166-column requirement mentioned in your snippet
     numeric_df = df.select_dtypes(include=[np.number]).fillna(0)
     features = numeric_df.iloc[:, 0:166]
     target = df['target']
@@ -44,11 +39,11 @@ def train_best_model(df):
 df = get_clean_data()
 best_model, feature_cols = train_best_model(df)
 
-# --- 2. Navigation ---
+
 st.title(APP_NAME)
 section = st.radio("Navigation", ["Overview", "Region Insights", "City Insights", "Category Insights", "Success Prediction"], horizontal=True)
 
-# --- 3. Overview Section ---
+# --- Overview Section ---
 if section == "Overview":
     # KPIs
     s_rate = (df['target'].sum() / len(df)) * 100
@@ -104,7 +99,7 @@ if section == "Overview":
         fig_donut.update_traces(textinfo='percent+label')
         st.plotly_chart(fig_donut, use_container_width=True)
 
-# --- 4. Insights Sections (Common Structure) ---
+# --- Insights Sections---
 elif section in ["Region Insights", "City Insights", "Category Insights"]:
     # Sidebar Filtering
     if section == "Region Insights":
@@ -120,19 +115,84 @@ elif section in ["Region Insights", "City Insights", "Category Insights"]:
         f_df = df[(df['major_category'].isin(maj if maj else df['major_category'])) & 
                   (df['minor_category'].isin(min_sel if min_sel else df['minor_category']))]
 
-    # Required Tabs
+    f_df = f_df.copy()
+    f_df['Outcome'] = f_df['is_success'].map({True: 'Success', False: 'Failure'})
+    color_map = {'Success': '#00CC96', 'Failure': '#EF553B'}
+
     t1, t2, t3, t4 = st.tabs(["Category and Markets", "Flow and Distribution", "Success Drivers & Indicators", "Performance Trends and Comparisons"])
     
     with t1:
-        st.plotly_chart(px.bar(f_df.groupby('minor_category')['amt_pledged_$'].sum().reset_index(), x='minor_category', y='amt_pledged_$'), use_container_width=True)
-    with t2:
-        st.plotly_chart(px.histogram(f_df, x='amt_pledged_$', color='is_success', marginal="box"), use_container_width=True)
-    with t3:
-        st.plotly_chart(px.scatter(f_df, x='goal_$', y='amt_pledged_$', color='is_success', size='number_of_pledgers'), use_container_width=True)
-    with t4:
-        st.plotly_chart(px.line(f_df.sort_values('date_launched'), x='date_launched', y='percent_raised'), use_container_width=True)
+        fig = px.bar(f_df.groupby('minor_category')['amt_pledged_$'].sum().reset_index(), 
+                     x='minor_category', y='amt_pledged_$',
+                     labels={'amt_pledged_$': 'Amount Pledged ($)','minor_category':"Minor Category"})
+        fig.update_layout(title_font_size=16, title_x=0.5)
+        st.plotly_chart(fig, use_container_width=True)
 
-# --- 5. Success Prediction (Bagging Classifier Only) ---
+    with t2:
+        fig_hist = px.histogram(
+            f_df, 
+            x='amt_pledged_$', 
+            color='Outcome', 
+            marginal="box",
+            color_discrete_map=color_map,
+            labels={'amt_pledged_$': 'Amount Pledged ($)', 'Outcome': 'Project Outcome'},
+            template='plotly_white'
+        )
+        fig_hist.update_layout(title_font_size=16, title_x=0.5)
+        st.plotly_chart(fig_hist, use_container_width=True)
+
+    with t3:
+        fig_scatter = px.scatter(
+            f_df, 
+            x='goal_$', 
+            y='amt_pledged_$', 
+            color='Outcome', 
+            size='number_of_pledgers',
+            color_discrete_map=color_map,
+            labels={
+                'goal_$': 'Goal Amount ($)', 
+                'amt_pledged_$': 'Amount Pledged ($)', 
+                'Outcome': 'Project Outcome',
+                'number_of_pledgers': 'Total Pledgers'
+            },
+            template='plotly_white'
+        )
+        fig_scatter.update_layout(title_font_size=16, title_x=0.5)
+        st.plotly_chart(fig_scatter, use_container_width=True)
+
+    with t4:
+        f_df['date_launched'] = pd.to_datetime(f_df[' date_launched '], errors='coerce')
+        f_df['Month'] = f_df['date_launched'].dt.month_name()
+        f_df['success_numeric'] = f_df['is_success'].astype(int)
+        
+        seasonal_df = f_df.groupby('Month')['success_numeric'].mean().reset_index()
+        seasonal_df['Success_Rate_Pct'] = seasonal_df['success_numeric'] * 100
+        
+        month_order = ['January', 'February', 'March', 'April', 'May', 'June', 
+                       'July', 'August', 'September', 'October', 'November', 'December']
+        
+        fig_monthly_bar = px.bar(
+            seasonal_df, 
+            x='Month', 
+            y='Success_Rate_Pct',
+            title='Seasonal Success: Which Months Win?',
+            category_orders={'Month': month_order},
+            color='Success_Rate_Pct',
+            color_continuous_scale='Viridis',
+            text_auto='.1f',
+            template='plotly_white',
+            labels={'Success_Rate_Pct': 'Success Rate (%)'}
+        )
+
+        fig_monthly_bar.update_layout(
+            title_x=0.5, 
+            showlegend=False, 
+            title_font_size=16,
+            xaxis_title="Month of Launch"
+        )
+        st.plotly_chart(fig_monthly_bar, use_container_width=True)
+
+# --- Success Prediction (Bagging Classifier Only) ---
 elif section == "Success Prediction":
     st.header("Predictive Modeling: Bagging Classifier")
     
