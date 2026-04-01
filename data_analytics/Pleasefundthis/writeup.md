@@ -6,7 +6,8 @@ The analysis looks at crowdfunding from different perspective leveraging visuali
 - **Performance Trends & Comparison (The "When & How Much")**: This theme focuses on benchmarking. It moves from what the market is to how it behaves over time and against expectations.
 - **Flow & Distribution** (The "Who & What"): This theme analyzes the mechanics of the crowd. It looks at how many people are involved and at what price points.
 - **Success Drivers & Indicators** (The "Why"): This theme attempts to find metrics that would drive crowdfunding outcomes.
-The analysis was done using the zerve.ai platform.  Also a sucess prediction classification model was built.  Peformed training and tested the data using different machine learning models and experiments.  I then settled on a gradient boosting model.  the finalized model had an accuracy of 66%
+The analysis was done using the zerve.ai platform.  
+A crowdfunding sucess classification model was built.  I Peformed training and tested using the data using different machine learning models and experiments.  I then settled on a gradient boosting model.  the finalized model had an accuracy of 66%.  It was also built into a streamlit app.
 A web version was built using In the **streamlit**. It has an overview section, Country Insights, City Insights, Category Insights and Success Prediction. 
 ## How it was built
 - The app was built using Crowdfunding data
@@ -37,59 +38,16 @@ The key insights are aligned to the themes show in the Project Summary section.
 4. **Multi-Factor Success Paths: Video & Facebook**: A video is a "must-have," but Facebook presence is the ultimate "deal-maker."  See multi-factor success path chart for more details.
 5. **Project Flow: From Category to Success**: Creative "niche" categories like Dance, Theater, and Comics have a much higher flow toward "Successful" than broad categories like Technology or Publishing. See Project Flow from Category to Success chart for more details.
 ### Success Drivers and Indicators
-1. **The ROI of Communication**: This scatter plot shows a dense vertical cluster of successful projects (green) between 10 and 40 updates, often achieving 200% to 800% of their goals. Unsuccessful projects (red) are almost entirely flatlined at the bottom, rarely exceeding 5–10 updates.  See ROI of Communication chart for more details.
-
-2. Funding Lift: Impact of Video Assets
-
-Analysis: The box-and-whisker plot shows that projects "With Video" have a median pledge amount significantly higher (roughly $3,200) than those "Without Video" (roughly $1,500).
-
-Reasoning: Crowdfunding is an exercise in trust. A video humanizes the creator and demonstrates a working prototype or a clear vision, reducing the "perceived risk" for the backer. This higher trust translates directly into a willingness to pledge larger amounts.
-
-3. Social Lift: Impact of Facebook Pages
-
-Analysis: This chart mirrors the video asset trend but with even more drastic disparity. Projects with a Facebook presence show a much tighter and higher distribution of success, while the "No Facebook" category has a median funding near zero.
-
-Reasoning: A Facebook page provides an external community "landing pad." It allows for targeted advertising and organic social discovery. Without this infrastructure, a project is forced to rely entirely on the platform’s internal traffic, which is rarely enough to hit a goal.
-
-4. **The Drivers of Success**:The strongest positive correlation is between Amount Pledged $ and # of Pledgers is  86%, followed by comment counts 72%. Interestingly, Duration days has a negligible or slightly negative correlation with success -12%.  See Drivers of success chart
-
-
-5. Anatomy of an Overachiever: Updates vs. Reward Complexity
-
-Analysis: Overachievers (500%+) average 12.8 updates and 12.7 pledge tiers. Standard winners drop to 4.6 updates and 9.9 tiers.
-
-Reasoning: High-performing projects offer "something for everyone." By having more tiers, they capture different levels of disposable income. By having more updates, they maintain the "hype cycle" required to blow past their original goal.
-
-6. The Backer Value Index: Category-Specific Pledges
-
-Analysis: Technology leads with an average pledge of $140 for successful projects, while Comics and Games sit at the bottom around $45–$46.
-
-Reasoning: This reflects the "unit price" of the industry. A new tech gadget costs more to produce and buy than a single comic book or a digital game download. Tech creators need fewer backers to hit a $10k goal than a comic creator does.
-
-7. The Anchor Effect: Power Words in Branding
-
-Analysis: Projects using the word "Affordable" command an average pledge of $533, while "Speaker" or "Wonderland" sit below $200.
-
-Reasoning: This is a psychological "anchor." Paradoxically, labeling something "affordable" often attracts high-value buyers looking for a "deal" on a premium item (like high-end audio or tech), leading to higher individual transaction values.
-
-8. Crowdsourcing Power: Personal Networks
-
-Analysis: The distribution of Facebook friends for those who "Reached Goal" vs. those who "Did Not" is nearly identical in density, with both groups clustering heavily under 1,000 friends.
-
-Reasoning: This proves that while having a Facebook page (Image 3) is vital, having a massive personal friend list is a "vanity metric." Successful creators convert strangers into backers through marketing, rather than just relying on friends and family.
-
-9. The Danger Zone: Goals vs. Deadlines
-
-Analysis: The heat map shows a massive concentration of failures (dark red) at the 30-day mark for goals under $10,000.
-
-Reasoning: Many creators choose the 30-day default and a "modest" goal but fail because they lack the marketing assets (Video/Facebook) to fill that window. It’s the "zone" where lack of preparation meets the reality of platform competition.
-
-10. The Social Proof Signal: Correlation Strength
-
-Analysis: This bar chart quantifies the Spearman Correlation of Facebook presence. It shows a very low correlation (0.07 to 0.11) between Facebook metrics and the actual "Winning" outcome.
-
-Reasoning: This reinforces Image 8. Facebook is a tool for communication, not a guarantee of funds. A project needs a Facebook presence to look legitimate, but the presence itself doesn't "force" people to spend money; the product and the updates (Image 1) do that.
-
+1. **The ROI of Communication**: Regular updates function as "social proof" and momentum builders. Each update triggers an email to backers, keeping the project top-of-mind and encouraging "viral" sharing. A lack of updates signals a dead or abandoned project to potential donors.  See ROI of Communication chart for more details.
+2. **Funding Lift: Impact of Video Assets**: Crowdfunding is an exercise in trust. A video humanizes the creator and demonstrates a working prototype or a clear vision, reducing the "perceived risk" for the backer. This higher trust translates directly into a willingness to pledge larger amounts.  See Funding Lift Impact of Video for more details
+3. **Social Lift: Impact of Facebook Pages**: Projects with a Facebook presence show a much tighter and higher distribution of success, while the "No Facebook" category has a median funding near zero.  See Social Lift chart for more details.
+4. **The Drivers of Success**: Success is driven by the size of the crowd rather than the length of the campaign. Adding more days to a campaign doesn't help if you aren't actively acquiring new backers; in fact, longer campaigns often lose momentum and urgency. The strongest positive correlation is between Amount Pledged $ and # of Pledgers is 86%, followed by comment counts 72%. Interestingly, Duration days has a negligible or slightly negative correlation with success -12%.  See Drivers of success chart for more details.
+5. **Anatomy of an Overachiever: Updates vs. Reward Complexity**: Overachievers (500%+) average 12.8 updates and 12.7 pledge tiers. Standard winners drop to 4.6 updates and 9.9 tiers. High-performing projects offer "something for everyone." By having more tiers, they capture different levels of disposable income. By having more updates, they maintain the "hype cycle" required to blow past their original goal. See Anatomy of an Overachiever chart for more details.
+6. **The Backer Value Index: Category-Specific Pledges**: Technology leads with an average pledge of $140 for successful projects, while Comics and Games sit at the bottom around $45–$46. This reflects the "unit price" of the industry. A new tech gadget costs more to produce and buy than a single comic book or a digital game download. Tech creators need fewer backers to hit a $10k goal than a comic creator does. See Backer Value Index chadt for more details.
+7. **The Anchor Effect: Power Words in Branding**: Projects using the word "Affordable" command an average pledge of $533, while "Speaker" or "Wonderland" sit below $200. This is a psychological "anchor." Paradoxically, labeling something "affordable" often attracts high-value buyers looking for a "deal" on a premium item (like high-end audio or tech), leading to higher individual transaction values.  See Anchor Effect chart for more details
+8. **Crowdsourcing Power: Personal Networks**: The distribution of Facebook friends for those who "Reached Goal" vs. those who "Did Not" is nearly identical in density, with both groups clustering heavily under 1,000 friends. Successful creators convert strangers into backers through marketing, rather than just relying on friends and family. See Crowdsourcing power chart for more details.
+9. **The Danger Zone: Goals vs. Deadlines**: The heat map shows a massive concentration of failures (dark red) at the 30-day mark for goals under $10,000. Many creators choose the 30-day default and a "modest" goal but fail because they lack the marketing assets (Video/Facebook) to fill that window. It’s the "zone" where lack of preparation meets the reality of platform competition. See Danger Zone chart for more details
+10. **The Social Proof Signal**: It shows a very low correlation (0.07 to 0.11) between Facebook metrics and the actual "Winning" outcome. This reinforces Facebook is a tool for communication, not a guarantee of funds. A project needs a Facebook presence to look legitimate, but the presence itself doesn't "force" people to spend money; the product and the updates do that. See Social Proof Signal chart for more details
 ## Challenges 
 - The main challenge was understanding how the Zerve.ai platform worked.  I noticed if I made to many block the app slowed down so had to reduce the number of blocks used.  
 ## Accomplishments 
