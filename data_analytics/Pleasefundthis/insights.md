@@ -1,6 +1,6 @@
-zerve link --> 
+zerve link --> Ever wonder what drives success in crowdfunding campaigns? I leveraged Zerve to do a deep dive into crowdfunding analytics.  Check it out --> https://app.zerve.ai/notebook/82e87b49-5fe8-437a-b7aa-ba642827ca0a
 
-zerve x url --> 
+zerve x url --> https://x.com/edimaudo/status/2039338483857170444?s=20
 
 video link --> 
 ## theme selection
