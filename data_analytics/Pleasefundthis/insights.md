@@ -1,3 +1,45 @@
+zerve link --> 
+
+zerve x url --> 
+
+video link --> 
+## theme selection
+1. Category & Market Insights (The "Where")
+
+This theme establishes the environment. In data analytics, you cannot understand performance without understanding the baseline of the industry.
+
+Reasoning: Before looking at individual success, we have to acknowledge that the rules for a "Video Game" are different from "Dance." This category groups visualizations that show how the market is segmented by geography, industry, and language (keywords). It identifies the "playing field."
+
+2. Performance Trends & Comparison (The "When & How Much")
+
+This theme focuses on benchmarking. It moves from what the market is to how it behaves over time and against expectations.
+
+Reasoning: By comparing "Goal vs. Pledged" (The Funding Gap) or "Success by Month," we identify patterns in human behavior. This is crucial for a non-technical audience because it turns abstract numbers into a calendar and a budget—things anyone can visualize and plan around.
+
+3. Flow & Distribution (The "Who & What")
+
+This theme analyzes the mechanics of the crowd. It looks at the spread of data—how many people are involved and at what price points.
+
+Reasoning: Using "Flow" (Sankey diagrams) and "Distribution" (Violin/Density plots) helps explain the volume of the movement. It answers: Is the money coming from a few wealthy donors or a massive crowd? Understanding the "buy-in" density is the only way to understand how a project gains momentum.
+
+4. Success Drivers & Indicators (The "Why")
+
+This is the correlation layer. While the other themes describe what happened, this theme attempts to find causation.
+
+Reasoning: This is where we look at "Updates," "Videos," and "Social Media." By using heatmaps and correlation charts, we isolate the specific levers a creator can actually pull. It separates "coincidence" (like having many Facebook friends) from "success drivers" (like having a Facebook page).
+
+Why this structure works for you:
+
+By organizing the 18+ data points into these four pillars, we avoid "data dumping." It creates a logical narrative:
+
+Pick your spot (Market Insights)
+
+Pick your time and goal (Performance Trends)
+
+Set your prices (Flow & Distribution)
+
+Execute the tactics (Success Drivers)
+
 
 ## top Insights by category
 1. Category & Market Insights
