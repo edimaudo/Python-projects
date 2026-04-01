@@ -5,8 +5,8 @@ The inspiration for doing the analysis was listening the Exploding Kittens episo
 The analysis looks at crowdfunding from different perspective leveraging visualization, analytics and machine learning.  It focused on 4 core themes. The analysis was done using the zerve.ai platform.  
 - **Category & Market Insights (The "Where")**: This theme establishes the environment. It helps the user get a good performance baseline.
 - **Performance Trends & Comparison (The "When & How Much")**: This theme focuses on benchmarking. It moves from what the market is to how it behaves over time and against expectations.
-- **Flow & Distribution** (The "Who & What"): This theme analyzes the mechanics of the crowd. It looks at how many people are involved and at what price points.
-- **Success Drivers & Indicators** (The "Why"): This theme attempts to find metrics that would drive crowdfunding outcomes.
+- **Flow & Distribution (The "Who & What")**: This theme analyzes the mechanics of the crowd. It looks at how many people are involved and at what price points.
+- **Success Drivers & Indicators (The "Why")**: This theme attempts to find metrics that would drive crowdfunding outcomes.
 
 A crowdfunding success classification model was built.  I Peformed training and tested using the data using different machine learning models and experiments.  I then settled on a gradient boosting model.  The finalized model had an accuracy of 66%.  
 A web app was built that covers the 4 themes and the predictive model using streamlit. It has an overview section, Country Insights, City Insights, Category Insights and Success Prediction. 
