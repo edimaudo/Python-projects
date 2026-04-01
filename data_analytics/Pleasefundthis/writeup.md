@@ -31,20 +31,20 @@ The key insights are aligned to the themes show in the Project Summary section.
 8. **Pledge Amount by Major Category**: There is a "Top 5" elite group of categories (Games, Film, Design, Tech, Music) that captures the vast majority of all crowdfunding dollars. See Pledge Amount by Major Category chart for more details.
 9. **Funding Hierarchy - Major to Minor Breakdown:** Success in "Design" and "Technology" is extremely narrow; almost all the money goes to Product Design and Hardware, leaving very little for software or graphics. See Funding Hierarchy - Major to Minor Breakdown chart for more details.
 
-### Performance Trends and Comparison
+### Performance Trends and Comparison Insights
 1. **Seasonal Success: Which Months Win?**: There is a massive "Spring-Summer Peak" for crowdfunding success, while the end of the year is a graveyard for new projects. See Seasonal Success chart for more details.
 2. **Success Rate by Day of Week**: The specific day you launch your project is surprisingly irrelevant—unless you launch on a Saturday.  See Success Rate by Day of Week chart for more details.
 3. **"Funding Gap" by Category**: Some industries are much more realistic about their value than others; Technology and Design creators set high goals but come closest to hitting them, while Publishing and Fashion projects are significantly over-ambitious. See Funding Gap by Category chart for more details.
 4. **Magnitude of Overfunding: Top 20 Most Successful Projects**: The "Super-Successes" of crowdfunding (like Oculus Rift or OUYA) aren't just hitting their goals; they are often exceeding them by millions of dollars. See Magnitude of Overfunding chart for more details.
 
-### Flow and Distribution
+### Flow and Distribution Insights
 1. **Success Rate by Project Type**: High volume is the strongest predictor of success, but mass appeal at a low cost is nearly as effective.  See Success Rate by Project Type chart for more details.
 2. **Entry-Level Pledge Rewards Density**: Successful projects keep their "buy-in" price low and focused, while failed projects often try to offer extremely expensive entry-level tiers. See Entry level reward pledge density chart for more details.
 3. **High-Tier Pledge Rewards Density**: Both successful and failed projects offer "VIP" rewards at the $10k mark, but successful projects have a much higher concentration of rewards in the $1k–$2k "sweet spot". See High tier reward pledge density chart for more details. 
 4. **Multi-Factor Success Paths: Video & Facebook**: A video is a "must-have," but Facebook presence is the ultimate "deal-maker."  See multi-factor success path chart for more details.
 5. **Project Flow: From Category to Success**: Creative "niche" categories like Dance, Theater, and Comics have a much higher flow toward "Successful" than broad categories like Technology or Publishing. See Project Flow from Category to Success chart for more details.
 
-### Success Drivers and Indicators
+### Success Drivers and Indicators Insights
 1. **The ROI of Communication**: Regular updates function as "social proof" and momentum builders. Each update triggers an email to backers, keeping the project top-of-mind and encouraging "viral" sharing. A lack of updates signals a dead or abandoned project to potential donors.  See ROI of Communication chart for more details.
 2. **Funding Lift: Impact of Video Assets**: Crowdfunding is an exercise in trust. A video humanizes the creator and demonstrates a working prototype or a clear vision, reducing the "perceived risk" for the backer. This higher trust translates directly into a willingness to pledge larger amounts.  See Funding Lift Impact of Video for more details
 3. **Social Lift: Impact of Facebook Pages**: Projects with a Facebook presence show a much tighter and higher distribution of success, while the "No Facebook" category has a median funding near zero.  See Social Lift chart for more details.
@@ -56,7 +56,7 @@ The key insights are aligned to the themes show in the Project Summary section.
 9. **The Danger Zone: Goals vs. Deadlines**: The heat map shows a massive concentration of failures (dark red) at the 30-day mark for goals under $10,000. Many creators choose the 30-day default and a "modest" goal but fail because they lack the marketing assets (Video/Facebook) to fill that window. It’s the "zone" where lack of preparation meets the reality of platform competition. See Danger Zone chart for more details
 10. **The Social Proof Signal**: It shows a very low correlation (0.07 to 0.11) between Facebook metrics and the actual "Winning" outcome. This reinforces Facebook is a tool for communication, not a guarantee of funds. A project needs a Facebook presence to look legitimate, but the presence itself doesn't "force" people to spend money; the product and the updates do that. See Social Proof Signal chart for more details
 
-## Challenges 
+## Challenges
 - The main challenge was understanding how the Zerve.ai platform worked.  I noticed if I made to many block the app slowed down so had to reduce the number of blocks used.  
 
 ## Accomplishments 
