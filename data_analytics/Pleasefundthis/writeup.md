@@ -65,5 +65,3 @@ The key insights are aligned to the themes show in the Project Summary section.
 ## Next steps
 - <strong>Next Best Pledge:</strong> Build Predictive model to Find the right Pledge Amount to ask for
 - <strong>Category Intelligence:</strong> Give the users the ability to ask questions using an LLM so that they are better setup for success
-
-
