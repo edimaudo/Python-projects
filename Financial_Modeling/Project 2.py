@@ -1,0 +1,111 @@
+# Libraries
+import streamlit as st
+import pandas as pd
+import matplotlib as mp
+import plotly.express as px
+import os, os.path
+import warnings
+import numpy as np
+from datetime import datetime
+import random
+warnings.simplefilter(action='ignore', category=FutureWarning)
+import math 
+
+st.set_page_config(
+    page_title = "Project 2 - Probabilistic Loan Pricing",
+    layout = 'wide'
+)
+
+st.title('Financial Modeling using Python')
+
+st.header("Project 2 - Probabilistic Loan Pricing")
+
+st.subheader("The Problem")
+with st.expander(" "):
+    st.write("""
+    You work for a bank who is considering loaning funds to a small manufacturing business. The business needs price-machine to buy machinery. 
+    The business would like to borrow the funds for n-life, and at that time it will repay price machine in full. 
+    Interest is paid annually at a rate of rinterest (in the final period, both price-machine and r-interest at the rate of rinterest will be paid). 
+    As this is a small business, there is significant default risk, but that default risk decreases over time as the business matures. 
+    The probability of default in the first year is p1-default, and then each year thereafter it is:
+    pt-default = pt−1 (default) Decaydefault 
+    Finally, the default probability is different in the final year, as it is the repayment year. The business has to
+    pay a lot more in this period so there is a greater likelihood it can’t come up with the funds. In the final year, (at
+    year n-life), the default probability is pn-default.
+When the business defaults, then the default covenants of the loan trigger bankruptcy for the borrower, and
+the borrower must pay as much as it can on the loan in the bankruptcy process. The bankruptcy process takes two
+years, and then once it is resolved, the lender will collect rrecovery% of pricemachine. For the year of default and
+the year after, the lender will not collect any cash flows, and then two years after default, the lender will collect
+rrecoverypricemachine. Note that this means the number of years of cash flows may be up to two years greater than
+the life of the loan.
+You are the commercial loan analyst trying to decide if this loan makes sense for the bank. You want to give the
+lending officer all the information she would need to negotiate a rate for this loan.
+Given the inputs, what is the expected IRR of the loan for a variety of interest rates on the loan? The lending
+officer would like you to evaluate rates in 5% increments from 30% to 40%.
+The lending officer is also worried that she may have estimated p1 default
+
+incorrectly. She is hoping for the answers
+to the above questions considering that p
+default 1 may vary. Evaluate the above questions for p
+default 1 = 0.1, 0.3 in
+addition to the base case of 0.2.
+Finally, the lending officer is unsure for how long she should exte
+    """)
+
+    st.subheader("Notes")
+    st.write("""
+You may assume a maximum loan life of 20 years in your model, which would make up to 22 years of cash
+flows.
+• Probably the easiest approach to building this model will use internal randomness. Though it certainly is
+possible to build this model using only expected values, I think that is generally more difficult.
+1
+• With the internal randomness approach, make sure you set the number of iterations to 1,000 per set of inputs
+to get a good estimate.
+• While you are testing things out, set it lower, such as 10 or 100, to have it run quicker, but beware that the
+lower your number of iterations, the less consistent the results will be.
+• Also beware that with 1,000 iterations as required for the final submission, it may take over an hour to run
+the model, so plan for that time.
+• You may choose to either submit a pure Python model, pure Excel model, or a combination of the two. If
+you use both, then the Python model should be what I ultimately run and extract results from. The Python
+model would be running the Excel model many times and extracting the results.
+• Upon reading the prior note, you may think to implement in pure Excel because of greater familiarity, but I
+think you will find meeting the objective of running the model repeatedly with three changing inputs quite
+difficult. You need to run your model 27,000 times in total with three inputs changing together.
+• Your answers may differ slightly from those in the Selected Solutions section. This is the nature of a random
+model. They should be very close with 1,000 iterations, though.
+    """)
+
+    st.subheader("The Model")
+    st.write("""
+    Inputs
+1. pricemachine: 1000000
+2. nlif e: 5
+3. p
+default
+1
+: 0.2
+4. Decaydefault: 0.9
+5. p
+default
+n
+: 0.4
+6. rrecovery: 0.4
+
+
+    """)
+
+    st.subheader("Bonus Problem")
+    st.write("""
+Especially good visualization of the original problem will earn part of the bonus.
+Further, produce the same outputs as the main problem, but instead of evaluating p
+default
+1 = 0.1, 0.3, consider
+p
+default
+1
+as being normally distributed with mean 0.2 and standard deviation 0.05.
+Also examine a single selected input case with different numbers of iterations, producing visualizations and
+summary statistics of the results with different numbers of iterations, to show how precise the expected IRR
+estimates are.
+
+    """)
