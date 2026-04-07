@@ -47,75 +47,102 @@ with st.expander(" "):
         """)
 
 
-st.subheader("Model Configuration & Baseline Inputs")
+# --- HELPER FUNCTIONS FOR CLEANUP ---
+def clean_coupon(coupon_val):
+    """Handles midpoint for ranges like '3% - 4%' or strings like '3.50%'"""
+    if isinstance(coupon_val, str) and '-' in coupon_val:
+        parts = [float(x.strip().replace('%', '')) for x in coupon_val.split('-')]
+        return sum(parts) / len(parts) / 100
+    try:
+        return float(str(coupon_val).replace('%', '')) / 100
+    except:
+        return 0.05 # Default fallback
 
-with st.expander("Adjust Parameters", expanded=True):
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown("**Equity & Market**")
-        price_wmt = st.number_input("WMT Stock Price", value=119.51)
-        shares_out = st.number_input("Shares Outstanding (Billions)", value=2.85)
-        beta_baseline = st.number_input("Baseline Beta", value=0.70)
-        mkt_return_baseline = st.number_input("Baseline Market Return (%)", value=8.0) / 100
-        rf_rate = st.number_input("Risk-Free Rate (%)", value=0.50) / 100
+def clean_date(date_val):
+    """Appends Dec 31 if only year is provided"""
+    str_date = str(date_val).strip()
+    if len(str_date) == 4: # Just a year
+        return pd.to_datetime(f"{str_date}-12-31")
+    return pd.to_datetime(str_date)
 
-    with col2:
-        st.markdown("**Debt & Tax**")
-        mv_debt_baseline = st.number_input("Baseline MV Debt (Billions)", value=82.7)
-        cost_debt_pre_tax = st.number_input("Pre-tax Cost of Debt (%)", value=2.74) / 100
-        tax_rate_baseline = st.number_input("Corporate Tax Rate (%)", value=21.0) / 100
-        sim_runs = st.select_slider("Simulations", options=[100, 1000, 10000], value=1000)
+# --- MAIN APP ---
+st.title('Project 3: WMT Monte Carlo Cost of Capital')
 
-# Financial Functions
-def calculate_re(rf, beta, rm):
-    # Adjust for daily as per PDF instructions
-    rf_daily = rf / 252
-    rm_daily = rm / 252
-    re_daily = rf_daily + beta * (rm_daily - rf_daily)
-    return re_daily * 252
+if st.sidebar.button("Run Full Analysis"):
+    try:
+        # 1. LOAD DATA
+        # Note: Filenames match the PDF requirements
+        wmt_prices = pd.read_excel("WMT Prices.xlsx")
+        sp_prices = pd.read_excel("SP500 Prices.xlsx")
+        debt_df = pd.read_excel("WMT Debt Details.xls")
+        inc_stmt = pd.read_excel("WMT Income Statement.xlsx")
+        bal_sheet = pd.read_excel("WMT Balance Sheet.xlsx")
 
-def calculate_wacc(e_val, d_val, re, rd, tax):
-    total_val = e_val + d_val
-    w_e = e_val / total_val
-    w_d = d_val / total_val
-    return (w_e * re) + (w_d * rd * (1 - tax))
+        # 2. CALCULATE BETA (CAPM)
+        wmt_ret = wmt_prices['Adj Close'].pct_change().dropna()
+        sp_ret = sp_prices['Adj Close'].pct_change().dropna()
+        
+        # Beta = Cov(WMT, SP) / Var(SP)
+        matrix = np.cov(wmt_ret, sp_ret)
+        beta_calc = matrix[0,1] / matrix[1,1]
+        
+        # 3. VALUATION OF DEBT (Individually)
+        # Using baseline pre-tax cost of debt 2.74% for valuation
+        r_d_baseline = 0.0274 
+        today = datetime(2021, 6, 9) # Settlement date for the project
+        
+        total_mv_debt = 0
+        for _, row in debt_df.iterrows():
+            principal = row['Principal']
+            coupon = clean_coupon(row['Coupon'])
+            maturity = clean_date(row['Maturity'])
+            
+            years_to_maturity = (maturity - today).days / 365.25
+            if years_to_maturity <= 0:
+                total_mv_debt += principal # Already expired/due
+            else:
+                # Price = PV of Coupons + PV of Principal
+                bond_pv = npf.pv(r_d_baseline, years_to_maturity, -coupon*principal, -principal)
+                total_mv_debt += bond_pv
 
-if st.button("Run Monte Carlo Analysis"):
-    equity_val = price_wmt * shares_out
-    
-    # 1. Generate Normal Distributions for Simulation
-    betas = np.random.normal(beta_baseline, 0.2, sim_runs)
-    mkt_returns = np.random.normal(mkt_return_baseline, 0.03, sim_runs)
-    tax_rates = np.random.normal(tax_rate_baseline, 0.05, sim_runs)
-    
-    # For simplicity in this shell, we simulate the variation in Bond Value directly
-    # In a full model, you would simulate individual bond yields
-    debt_values = np.random.normal(mv_debt_baseline, 5.0, sim_runs) 
+        # 4. EQUITY VALUE
+        price_wmt = wmt_prices['Adj Close'].iloc[-1]
+        shares = 2850000000 # Based on PDF data
+        market_cap = price_wmt * shares
 
-    # 2. Run Iterations
-    results = []
-    for i in range(sim_runs):
-        sim_re = calculate_re(rf_rate, betas[i], mkt_returns[i])
-        sim_wacc = calculate_wacc(equity_val, debt_values[i], sim_re, cost_debt_pre_tax, tax_rates[i])
-        results.append(sim_wacc * 100) # Convert to percentage
+        # 5. MONTE CARLO SIMULATION (10,000 Runs)
+        n_sims = 10000
+        # Inputs defined in PDF: Beta (std 0.2), Mkt Ret (std 3%), Tax (std 5%)
+        sim_betas = np.random.normal(beta_calc, 0.2, n_sims)
+        sim_mkt_returns = np.random.normal(0.08, 0.03, n_sims)
+        sim_taxes = np.random.normal(0.21, 0.05, n_sims)
+        
+        rf_daily = 0.005 / 252
+        
+        results = []
+        for i in range(n_sims):
+            # Cost of Equity
+            re_daily = rf_daily + sim_betas[i] * ((sim_mkt_returns[i]/252) - rf_daily)
+            re_annual = re_daily * 252
+            
+            # WACC
+            total_val = market_cap + total_mv_debt
+            w_e = market_cap / total_val
+            w_d = total_mv_debt / total_val
+            
+            wacc = (w_e * re_annual) + (w_d * r_d_baseline * (1 - sim_taxes[i]))
+            results.append(wacc)
 
-    # 3. Visualizations
-    df_results = pd.DataFrame(results, columns=['WACC'])
-    
-    st.divider()
-    st.metric("Mean WACC", f"{np.mean(results):.2f}%")
-    
-    fig = px.histogram(df_results, x="WACC", nbins=50, 
-                       title="Probability Distribution of WACC",
-                       labels={'WACC': 'WACC (%)'},
-                       template="plotly_white")
-    st.plotly_chart(fig, use_container_width=True)
+        # 6. OUTPUTS
+        st.header("Baseline Metrics")
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Calculated Beta", round(beta_calc, 2))
+        c2.metric("MV Debt (Billion)", f"${total_mv_debt/1e9:.2f}B")
+        c3.metric("Baseline WACC", f"{np.mean(results)*100:.2f}%")
 
-    # 4. Probability Table
-    st.subheader("Probability Table")
-    percentiles = [1, 5, 25, 50, 75, 95, 99]
-    table = pd.DataFrame({
-        "Percentile": [f"{p}%" for p in percentiles],
-        "WACC Value": [f"{np.percentile(results, p):.2f}%" for p in percentiles]
-    })
-    st.table(table)
+        # Histogram
+        fig = px.histogram(results, nbins=50, title="Distribution of WACC Outcomes")
+        st.plotly_chart(fig)
+
+    except Exception as e:
+        st.error(f"Error loading files: {e}. Ensure all Excel files are in the directory.")
