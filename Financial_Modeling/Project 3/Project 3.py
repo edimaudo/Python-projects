@@ -6,6 +6,7 @@ import plotly.express as px
 import os, os.path
 import warnings
 import numpy as np
+import numpy_financial as npf
 from datetime import datetime
 import random
 warnings.simplefilter(action='ignore', category=FutureWarning)
